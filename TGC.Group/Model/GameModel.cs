@@ -6,6 +6,7 @@ using TGC.Core.Geometry;
 using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 using TGC.Core.Terrain;
 using TGC.Core.Textures;
 
@@ -26,9 +27,9 @@ namespace TGC.Group.Model
         /// <param name="shadersDir">Ruta donde esta la carpeta con los shaders</param>
         public GameModel(string mediaDir, string shadersDir) : base(mediaDir, shadersDir)
         {
-            Category = "StarWars";//Game.Default.Category;
-            Name = "Proyecto R2D2";//Game.Default.Name;
-            Description = "Autor: JMJ";//Game.Default.Description;
+            Category = Game.Default.Category;
+            Name = Game.Default.Name;
+            Description = Game.Default.Description;
         }
 
         //Definimos estructuras
@@ -45,10 +46,20 @@ namespace TGC.Group.Model
         private TgcPlane[] paredes32;
         private TgcPlane pared;
         private TgcPlane pared2;
+        
+        private TgcMesh ship;
+
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
 
         TgcSkyBox skyBox;
+
+
+
+
+
+
+
 
         private TgcPlane[] completarLineaDeSuelosX(int cantidadDeSuelo, string DireccionTextura, float X, float Y, float Z, float escala)
         {
@@ -155,7 +166,7 @@ namespace TGC.Group.Model
             //var texturesPath = MediaDir + "Texturas\\Quake\\SkyBox1\\";
 
             //Configurar las texturas para cada una de las 6 caras
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Up, MediaDir + "Color A05.png");
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Up, MediaDir + "Arriba.jpg");
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Down, MediaDir + "Color A05.png");
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Left, MediaDir + "Color A05.png");
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Right, MediaDir + "Color A05.png");
@@ -254,6 +265,18 @@ namespace TGC.Group.Model
             paredes32 = completarParedZ((1 + 5), pathTexturaCaja3, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
 
 
+            //Cargar un mesh
+
+            TgcSceneLoader loader = new TgcSceneLoader();
+            ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir+"ShipRoll.fx");
+            ship.Technique = "Normal";
+            ship.Position = new TGCVector3(0, 0, 0);
+            ship.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.5f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+
+
+
             //pared = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(10, 10, 10), TgcPlane.Orientations.YZplane, TgcTexture.createTexture(pathTexturaCaja), 10f, 10f);
             // pared2 = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(10, 10, 10), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(pathTexturaCaja), 10f, 10f);
 
@@ -264,10 +287,14 @@ namespace TGC.Group.Model
             //Lo que en realidad necesitamos gráficamente es una matriz de View.
             //El framework maneja una cámara estática, pero debe ser inicializada.
             //Posición de la camara.
-            var cameraPosition = new TGCVector3(5, 5, 5);
+            //var cameraPosition = new TGCVector3(5, 5, 5);
+            var cameraPosition = new TGCVector3(5, 300, 5);
+            
+
             //Quiero que la camara mire hacia el origen (0,0,0).
             //var lookAt = TGCVector3.Empty;
-            var lookAt = new TGCVector3(10, 5, 15);
+            //var lookAt = new TGCVector3(10, 5, 15);
+            var lookAt = new TGCVector3(0, 0, 0);
             //Configuro donde esta la posicion de la camara y hacia donde mira.
             Camera.SetCamera(cameraPosition, lookAt);
             //Internamente el framework construye la matriz de view con estos dos vectores.
@@ -374,6 +401,7 @@ namespace TGC.Group.Model
             mostrarArrayPlano(paredes31);
             mostrarArrayPlano(paredes32);
             skyBox.Render();
+            ship.Render();
 
 
 
