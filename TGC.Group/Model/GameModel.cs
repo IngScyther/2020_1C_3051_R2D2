@@ -72,7 +72,9 @@ namespace TGC.Group.Model
             {
 
 
-                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 10f, 10f);
+                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
+                //suelos[i].AutoAdjustUv = false;
+                //suelos[i].updateValues();
 
                 X += escala;
 
@@ -94,7 +96,7 @@ namespace TGC.Group.Model
             {
 
 
-                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 10f, 10f);
+                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
 
                 Z += escala;
 
@@ -116,7 +118,7 @@ namespace TGC.Group.Model
             {
 
 
-                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(DireccionTextura), 10f, 10f);
+                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
 
                 X += escala;
 
@@ -139,7 +141,7 @@ namespace TGC.Group.Model
             {
 
 
-                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.YZplane, TgcTexture.createTexture(DireccionTextura), 10f, 10f);
+                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.YZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
 
                 Z += escala;
 
@@ -167,9 +169,9 @@ namespace TGC.Group.Model
 
             //Configurar las texturas para cada una de las 6 caras
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Up, MediaDir + "Arriba.jpg");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Down, MediaDir + "Color A05.png");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Left, MediaDir + "Color A05.png");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Right, MediaDir + "Color A05.png");
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Down, MediaDir + "Arriba.jpg");
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Left, MediaDir + "Arriba.jpg");
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Right, MediaDir + "Arriba.jpg");
 
             //Hay veces es necesario invertir las texturas Front y Back si se pasa de un sistema RightHanded a uno LeftHanded
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Front, MediaDir + "Color A05.png");
@@ -247,9 +249,9 @@ namespace TGC.Group.Model
             int escala = 10;
             // Pasillo 1 (0,0,0) -> (6x10,0,0)
 
-            suelos1 = completarLineaDeSuelosX(6, pathTexturaCaja, 0, 0, 0, escala);
-            paredes11 = completarParedZ((6 + 1), pathTexturaCaja3, 0, 0, 0, escala);
-            paredes12 = completarParedZ(6, pathTexturaCaja3, 0, 0, 1 * escala, escala);
+            suelos1 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
+            paredes11 = completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
+            paredes12 = completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
 
             //Pasillo 2 (6x10,0,0) -> (6x10,0,6x10)
 
@@ -271,9 +273,9 @@ namespace TGC.Group.Model
             ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir+"ShipRoll.fx");
             ship.Technique = "Normal";
-            ship.Position = new TGCVector3(0, 0, 0);
-            ship.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.5f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Position = new TGCVector3(0, 0, 5);
+            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
 
 
@@ -288,13 +290,13 @@ namespace TGC.Group.Model
             //El framework maneja una cámara estática, pero debe ser inicializada.
             //Posición de la camara.
             //var cameraPosition = new TGCVector3(5, 5, 5);
-            var cameraPosition = new TGCVector3(5, 300, 5);
+            var cameraPosition = new TGCVector3(-20, 15, 5);
             
 
             //Quiero que la camara mire hacia el origen (0,0,0).
             //var lookAt = TGCVector3.Empty;
-            //var lookAt = new TGCVector3(10, 5, 15);
-            var lookAt = new TGCVector3(0, 0, 0);
+            var lookAt = new TGCVector3(10, 5, 5);
+            //var lookAt = new TGCVector3(30, 0, 0);
             //Configuro donde esta la posicion de la camara y hacia donde mira.
             Camera.SetCamera(cameraPosition, lookAt);
             //Internamente el framework construye la matriz de view con estos dos vectores.
