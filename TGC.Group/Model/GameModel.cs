@@ -47,6 +47,7 @@ namespace TGC.Group.Model
         private TgcPlane pared;
         private TgcPlane pared2;
         
+
         private TgcMesh ship;
 
         private TGCVector3 posicionCamara;
@@ -301,6 +302,8 @@ namespace TGC.Group.Model
             Camera.SetCamera(cameraPosition, lookAt);
             //Internamente el framework construye la matriz de view con estos dos vectores.
             //Luego en nuestro juego tendremos que crear una cámara que cambie la matriz de view con variables como movimientos o animaciones de escenas.
+
+
         }
 
         /// <summary>
@@ -350,25 +353,25 @@ namespace TGC.Group.Model
 
             if (Input.keyPressed(Key.UpArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 1f, 0));
+                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 5f, 0));
                 objetivo = Camera.LookAt;
             }
 
             if (Input.keyPressed(Key.DownArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -1f, 0));
+                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -5f, 0));
                 objetivo = Camera.LookAt;
             }
 
             if (Input.keyPressed(Key.RightArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -1f));
+                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -5f));
                 objetivo = Camera.LookAt;
             }
 
             if (Input.keyPressed(Key.LeftArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 1f));
+                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
 
             }
@@ -387,8 +390,8 @@ namespace TGC.Group.Model
             PreRender();
 
             //Dibuja un texto por pantalla
-            DrawText.drawText("Con la tecla F se dibuja el bounding box.", 0, 20, Color.OrangeRed);
-            DrawText.drawText("Con clic izquierdo subimos la camara [Actual]: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 30, Color.OrangeRed);
+            DrawText.drawText("Con la tecla F NO se dibuja el bounding box.", 0, 20, Color.LightSalmon);
+            DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
 
             mostrarArrayPlano(suelos1);
