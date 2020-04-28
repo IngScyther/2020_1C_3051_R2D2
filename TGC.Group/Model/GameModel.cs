@@ -271,7 +271,8 @@ namespace TGC.Group.Model
             //Cargar un mesh
 
             TgcSceneLoader loader = new TgcSceneLoader();
-            ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir+"ShipRoll.fx");
             ship.Technique = "Normal";
@@ -392,7 +393,7 @@ namespace TGC.Group.Model
 
             //Dibuja un texto por pantalla
             DrawText.drawText("Con la tecla F NO se dibuja el bounding box.", 0, 20, Color.LightSalmon);
-            DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
+            DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
 
             mostrarArrayPlano(suelos1);
