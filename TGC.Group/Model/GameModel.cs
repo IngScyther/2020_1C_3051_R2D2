@@ -272,6 +272,7 @@ namespace TGC.Group.Model
 
             TgcSceneLoader loader = new TgcSceneLoader();
             ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir+"ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
