@@ -102,6 +102,7 @@
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\Camara.cs" />
+    <Compile Include="Model\DeathStar.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\NaveJugador.cs" />
     <Compile Include="Model\SkyBox.cs" />

@@ -50,9 +50,12 @@ namespace TGC.Group.Model
         
 
         private TgcMesh jugador;
+        private TgcMesh DeathStar;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
+
+        TgcScene Scene;
 
         TgcSkyBox skyBox;
         Camara Camara1;
@@ -183,6 +186,15 @@ namespace TGC.Group.Model
             //Cargar unJugador
             NaveJugador adminave = new NaveJugador();
             jugador = adminave.crearInstanciaNave(MediaDir);
+            //Mesh Deathstar
+            TgcSceneLoader loader=new TgcSceneLoader();
+            Scene= loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml");
+
+            DeathStar adminave2 = new DeathStar();
+            DeathStar = adminave2.crearInstanciaNave(MediaDir);
+
+
+
 
 
             // Hay que arreglar esta parte terreno offline
@@ -225,7 +237,6 @@ namespace TGC.Group.Model
             paredes31 = completarParedZ(5, pathTexturaCaja3, (1 + 6) * escala, 0, 6 * escala, escala);
             paredes32 = completarParedZ((1 + 5), pathTexturaCaja3, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
 
-
             
             // Hay que arreglar esta parte.
             //Suelen utilizarse objetos que manejan el comportamiento de la camara.
@@ -247,7 +258,7 @@ namespace TGC.Group.Model
             Camara1 = new Camara();
             Camara1.Eye = new TGCVector3(10, 5, 5);
             Camara1.Target = new TGCVector3(0, 0, 5);
-
+            //Camera = Camara1;
 
 
 
@@ -276,7 +287,7 @@ namespace TGC.Group.Model
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
             }
 
-            /*
+            
             if (Input.keyPressed(Key.S))
             {
                 Camera.SetCamera((Camera.Position - (objetivo - Camera.Position)), Camera.LookAt - (objetivo - Camera.Position));
@@ -325,7 +336,7 @@ namespace TGC.Group.Model
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
 
-            }*/
+            }
 
             PostUpdate();
         }
@@ -358,6 +369,7 @@ namespace TGC.Group.Model
             mostrarArrayPlano(paredes32);
             skyBox.Render();
             jugador.Render();
+            DeathStar.Render();
 
 
 
