@@ -1,5 +1,6 @@
 using Microsoft.DirectX.DirectInput;
 using System.Drawing;
+using TGC.Core.Camara;
 using TGC.Core.Direct3D;
 using TGC.Core.Example;
 using TGC.Core.Geometry;
@@ -54,13 +55,9 @@ namespace TGC.Group.Model
         private TGCVector3 objetivo;
 
         TgcSkyBox skyBox;
+        Camara Camara1;
 
-
-
-
-
-
-
+        
 
         private TgcPlane[] completarLineaDeSuelosX(int cantidadDeSuelo, string DireccionTextura, float X, float Y, float Z, float escala)
         {
@@ -175,12 +172,6 @@ namespace TGC.Group.Model
         public override void Init()
         {
 
-
-
-
-
-
-
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //Device de DirectX para crear primitivas.
             var d3dDevice = D3DDevice.Instance.Device;
@@ -253,6 +244,11 @@ namespace TGC.Group.Model
             Camera.SetCamera(cameraPosition, lookAt);
             //Internamente el framework construye la matriz de view con estos dos vectores.
             //Luego en nuestro juego tendremos que crear una cámara que cambie la matriz de view con variables como movimientos o animaciones de escenas.
+            Camara1 = new Camara();
+            Camara1.Eye = new TGCVector3(10, 5, 5);
+            Camara1.Target = new TGCVector3(0, 0, 5);
+
+
 
 
         }
@@ -272,11 +268,15 @@ namespace TGC.Group.Model
             //Hay que ver como calcular esto.
             objetivo = Camera.LookAt;
 
+            Camara1.UpdateCamera(ElapsedTime);
+            jugador.Position+= new TGCVector3(0, 0, 1);
             if (Input.keyPressed(Key.W))
             {
-                Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
+                
+                //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
             }
 
+            /*
             if (Input.keyPressed(Key.S))
             {
                 Camera.SetCamera((Camera.Position - (objetivo - Camera.Position)), Camera.LookAt - (objetivo - Camera.Position));
@@ -325,7 +325,7 @@ namespace TGC.Group.Model
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
 
-            }
+            }*/
 
             PostUpdate();
         }
