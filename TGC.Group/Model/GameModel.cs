@@ -48,7 +48,7 @@ namespace TGC.Group.Model
         private TgcPlane pared2;
         
 
-        private TgcMesh ship;
+        private TgcMesh jugador;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
@@ -155,43 +155,6 @@ namespace TGC.Group.Model
 
 
 
-        private TgcSkyBox crearcielo()
-        {
-
-            //Crear SkyBox
-            skyBox = new TgcSkyBox();
-            skyBox.Center = TGCVector3.Empty;
-            skyBox.Size = new TGCVector3(10000, 10000, 10000);
-
-            //Configurar color
-            //skyBox.Color = Color.OrangeRed;
-
-            //var texturesPath = MediaDir + "Texturas\\Quake\\SkyBox1\\";
-
-            //Configurar las texturas para cada una de las 6 caras
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Up, MediaDir + "Arriba.jpg");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Down, MediaDir + "Arriba.jpg");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Left, MediaDir + "Arriba.jpg");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Right, MediaDir + "Arriba.jpg");
-
-            //Hay veces es necesario invertir las texturas Front y Back si se pasa de un sistema RightHanded a uno LeftHanded
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Front, MediaDir + "Color A05.png");
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Back, MediaDir + "Color A05.png");
-            skyBox.SkyEpsilon = 25f;
-            //Inicializa todos los valores para crear el SkyBox
-            skyBox.Init();
-
-
-
-            return skyBox;
-
-        }
-
-
-
-
-
-
         private void mostrarArrayPlano(TgcPlane[] planos)
         {
 
@@ -222,12 +185,16 @@ namespace TGC.Group.Model
             //Device de DirectX para crear primitivas.
             var d3dDevice = D3DDevice.Instance.Device;
 
-
-
-
             //Crear SkyBox
-            skyBox = crearcielo();
+            SkyBox adminskybox = new SkyBox();
+            skyBox = adminskybox.crearcielo1(MediaDir);
 
+            //Cargar unJugador
+            NaveJugador adminave = new NaveJugador();
+            jugador = adminave.crearInstanciaNave(MediaDir);
+
+
+            // Hay que arreglar esta parte terreno offline
             //Textura de la carperta Media. Game.Default es un archivo de configuracion (Game.settings) util para poner cosas.
             //Pueden abrir el Game.settings que se ubica dentro de nuestro proyecto para configurar.
             //Esta textura despues la cambiamos.
@@ -268,26 +235,8 @@ namespace TGC.Group.Model
             paredes32 = completarParedZ((1 + 5), pathTexturaCaja3, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
 
 
-            //Cargar un mesh
-
-            TgcSceneLoader loader = new TgcSceneLoader();
-            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[0];
-            // Al XWIN le falta una aleta.
-            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir+"ShipRoll.fx");
-            ship.Technique = "Normal";
-            ship.Position = new TGCVector3(0, 0, 5);
-            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
-
-
-
-            //pared = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(10, 10, 10), TgcPlane.Orientations.YZplane, TgcTexture.createTexture(pathTexturaCaja), 10f, 10f);
-            // pared2 = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(10, 10, 10), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(pathTexturaCaja), 10f, 10f);
-
-            // paredes2 = completarParedX(8, texturaEstrella, posx+escala, 0, 0, escala);
-
-
+            
+            // Hay que arreglar esta parte.
             //Suelen utilizarse objetos que manejan el comportamiento de la camara.
             //Lo que en realidad necesitamos gráficamente es una matriz de View.
             //El framework maneja una cámara estática, pero debe ser inicializada.
@@ -408,7 +357,7 @@ namespace TGC.Group.Model
             mostrarArrayPlano(paredes31);
             mostrarArrayPlano(paredes32);
             skyBox.Render();
-            ship.Render();
+            jugador.Render();
 
 
 
