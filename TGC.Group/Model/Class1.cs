@@ -15,13 +15,13 @@ using TGC.Core.Textures;
 
 namespace TGC.Group.Model
 {
-    class meshDeathtar2
+    class Class1
     {
         public TgcMesh crearInstanciaNave(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\death+star2-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m1-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";

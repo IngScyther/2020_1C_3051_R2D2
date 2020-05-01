@@ -52,6 +52,9 @@ namespace TGC.Group.Model
         private TgcMesh jugador;
         private TgcMesh DeathStar;
         private TgcMesh DeathStar2;
+        private TgcMesh DeathStar3;
+        private TgcMesh DeathStar4;
+        private TgcMesh DeathStar5;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
@@ -196,10 +199,20 @@ namespace TGC.Group.Model
             DeathStar = adminave1.crearInstanciaNave(MediaDir);
 
             //Parte nave2
-            meshDeathtar2 adminave2 = new meshDeathtar2();
+            meshDeathstar2 adminave2 = new meshDeathstar2();
             DeathStar2 = adminave2.crearInstanciaNave(MediaDir);
 
+            //Parte nave3
+            meshGeodeSphere adminave3 = new meshGeodeSphere();
+            DeathStar3 = adminave3.crearInstanciaNave(MediaDir);
 
+            //Parte nave4
+            meshHierros adminave4 = new meshHierros();
+            DeathStar4 = adminave4.crearInstanciaNave(MediaDir);
+
+            //Parte nave5
+            Class1 adminave5 = new Class1();
+            DeathStar5 = adminave5.crearInstanciaNave(MediaDir);
 
 
             // Hay que arreglar esta parte terreno offline
@@ -376,6 +389,9 @@ namespace TGC.Group.Model
             jugador.Render();
             DeathStar.Render();
             DeathStar2.Render();
+            //DeathStar3.Render();
+            //DeathStar4.Render();
+            //DeathStar5.Render();
 
 
 

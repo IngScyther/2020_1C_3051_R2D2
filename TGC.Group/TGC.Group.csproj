@@ -103,7 +103,10 @@
     </Compile>
     <Compile Include="Model\CamaraTPEstatica.cs" />
     <Compile Include="Model\CamaraTPMovimiento.cs" />
-    <Compile Include="Model\meshDeathtar2.cs" />
+    <Compile Include="Model\Class1.cs" />
+    <Compile Include="Model\meshHierros.cs" />
+    <Compile Include="Model\meshGeodeSphere.cs" />
+    <Compile Include="Model\meshDeathstar2.cs" />
     <Compile Include="Model\meshDeathStar.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\NaveJugador.cs" />
