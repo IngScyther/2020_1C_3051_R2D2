@@ -50,6 +50,12 @@ namespace TGC.Group.Model
 
         }
 
+        void avanzar(TgcMesh mesh,TGCVector3 desp) {
+
+            mesh.Position+=  desp;
+        
+        }
+
 
 
 

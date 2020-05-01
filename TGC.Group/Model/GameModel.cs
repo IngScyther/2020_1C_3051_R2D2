@@ -300,18 +300,23 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-           /* posicionCamara = Camera.Position;
+            /* posicionCamara = Camera.Position;
 
 
-            //Hay que ver como calcular esto.
-            objetivo = Camera.LookAt;
+             //Hay que ver como calcular esto.
+             objetivo = Camera.LookAt;
 
-            Camara1.UpdateCamera(ElapsedTime);
-            jugador.Position+= new TGCVector3(0, 0, 1);
-            if (Input.keyPressed(Key.W))
+             Camara1.UpdateCamera(ElapsedTime);
+             jugador.Position+= new TGCVector3(0, 0, 1);*/
+
+            jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
+
+            if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
+                jugador.Position+= new TGCVector3(1, 0, 0);
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
             }
 
             
@@ -363,7 +368,7 @@ namespace TGC.Group.Model
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
 
-            } */
+            } 
 
             PostUpdate();
         }
@@ -383,13 +388,13 @@ namespace TGC.Group.Model
             DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
 
-            //mostrarArrayPlano(suelos1);
+            mostrarArrayPlano(suelos1);
             //mostrarArrayPlano(suelos2);
             //mostrarArrayPlano(suelos3);
             //pared.Render();
             //pared2.Render();
-            //mostrarArrayPlano(paredes11);
-            //mostrarArrayPlano(paredes12);
+            mostrarArrayPlano(paredes11);
+            mostrarArrayPlano(paredes12);
             //mostrarArrayPlano(paredes21);
             //mostrarArrayPlano(paredes22);
             //mostrarArrayPlano(paredes31);
