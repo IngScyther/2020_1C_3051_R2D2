@@ -62,7 +62,9 @@ namespace TGC.Group.Model
         TgcScene Scene;
 
         TgcSkyBox skyBox;
+        CamaraTPEstatica Camara0;
         CamaraTPMovimiento Camara1;
+
 
         
 
@@ -190,9 +192,6 @@ namespace TGC.Group.Model
             //Cargar unJugador
             NaveJugador adminave = new NaveJugador();
             jugador = adminave.crearInstanciaNave1(MediaDir);
-            //Mesh Deathstar
-            TgcSceneLoader loader=new TgcSceneLoader();
-            Scene= loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml");
 
             //Parte nave1
             meshDeathStar adminave1 = new meshDeathStar();
@@ -274,9 +273,19 @@ namespace TGC.Group.Model
             //Internamente el framework construye la matriz de view con estos dos vectores.
             //Luego en nuestro juego tendremos que crear una cámara que cambie la matriz de view con variables como movimientos o animaciones de escenas.
             Camara1 = new CamaraTPMovimiento();
-            Camara1.Eye = new TGCVector3(10, 5, 5);
-            Camara1.Target = new TGCVector3(0, 0, 5);
+            //Camara1.Eye = new TGCVector3(10, 5, 5);
+            //Camara1.Target = new TGCVector3(0, 0, 5);
             //Camera = Camara1;
+            
+            //Camara1.Eye = new TGCVector3(-10, 10, 5);
+            //Camara1.UpdateCamera(ElapsedTime);
+            Camara1.setTargetOffset(new TGCVector3(0, 0, 5), -30, 5,0);
+            //Camara1.SetCamera(new TGCVector3(-10, 10, 5), new TGCVector3(0, 0, 5));
+            
+            //Camara1.Eye = new TGCVector3(0, 0, 5);
+            //Camara0 = new CamaraTPEstatica(new TGCVector3(0, 0, 5),1,1);
+            //Camara1.setOrientation(new TGCVector3(-15, 01, -15));
+            Camera = Camara1;
 
 
 
@@ -291,7 +300,7 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-            posicionCamara = Camera.Position;
+           /* posicionCamara = Camera.Position;
 
 
             //Hay que ver como calcular esto.
@@ -354,7 +363,7 @@ namespace TGC.Group.Model
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
 
-            }
+            } */
 
             PostUpdate();
         }
@@ -386,12 +395,12 @@ namespace TGC.Group.Model
             //mostrarArrayPlano(paredes31);
             //mostrarArrayPlano(paredes32);
             skyBox.Render();
-            //jugador.Render();
+            jugador.Render();
             //DeathStar.Render();
             //DeathStar2.Render();
             //DeathStar3.Render();
             //DeathStar4.Render();
-            DeathStar5.Render();
+            //DeathStar5.Render();
 
 
 

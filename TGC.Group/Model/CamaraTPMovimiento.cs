@@ -77,9 +77,9 @@ namespace TGC.Group.Model
         /// <summary>
         ///     Asigna target con offsets.
         /// </summary>
-        public void setTargetOffset(TGCVector3 target, float offsetY, float offsetZ)
+        public void setTargetOffset(TGCVector3 target,float offsetX, float offsetY, float offsetZ)
         {
-            Eye = new TGCVector3(target.X, target.Y + offsetY, target.Z + offsetZ);
+            Eye = new TGCVector3(target.X + offsetX, target.Y + offsetY, target.Z + offsetZ);
 
             Target = target;
 
