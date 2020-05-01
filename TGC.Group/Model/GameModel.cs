@@ -51,6 +51,7 @@ namespace TGC.Group.Model
 
         private TgcMesh jugador;
         private TgcMesh DeathStar;
+        private TgcMesh DeathStar2;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
@@ -58,7 +59,7 @@ namespace TGC.Group.Model
         TgcScene Scene;
 
         TgcSkyBox skyBox;
-        Camara Camara1;
+        CamaraTPMovimiento Camara1;
 
         
 
@@ -190,9 +191,13 @@ namespace TGC.Group.Model
             TgcSceneLoader loader=new TgcSceneLoader();
             Scene= loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml");
 
-            DeathStar adminave2 = new DeathStar();
-            DeathStar = adminave2.crearInstanciaNave(MediaDir);
+            //Parte nave1
+            meshDeathStar adminave1 = new meshDeathStar();
+            DeathStar = adminave1.crearInstanciaNave(MediaDir);
 
+            //Parte nave2
+            meshDeathtar2 adminave2 = new meshDeathtar2();
+            DeathStar2 = adminave2.crearInstanciaNave(MediaDir);
 
 
 
@@ -255,7 +260,7 @@ namespace TGC.Group.Model
             Camera.SetCamera(cameraPosition, lookAt);
             //Internamente el framework construye la matriz de view con estos dos vectores.
             //Luego en nuestro juego tendremos que crear una cámara que cambie la matriz de view con variables como movimientos o animaciones de escenas.
-            Camara1 = new Camara();
+            Camara1 = new CamaraTPMovimiento();
             Camara1.Eye = new TGCVector3(10, 5, 5);
             Camara1.Target = new TGCVector3(0, 0, 5);
             //Camera = Camara1;
@@ -370,6 +375,7 @@ namespace TGC.Group.Model
             skyBox.Render();
             jugador.Render();
             DeathStar.Render();
+            DeathStar2.Render();
 
 
 

@@ -8,7 +8,7 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
-    public class Camara : TgcCamera
+    public class CamaraTPMovimiento : TgcCamera
     {
         
         private static readonly float DEFAULT_SPRING_CONSTANT = 16.0f;
@@ -26,7 +26,7 @@ namespace TGC.Group.Model
         private TGCVector3 m_velocity;
         private TGCMatrix m_viewMatrix;
 
-        public Camara()
+        public CamaraTPMovimiento()
         {
             resetValues();
         }
