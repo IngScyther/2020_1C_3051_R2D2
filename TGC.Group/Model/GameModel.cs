@@ -189,7 +189,7 @@ namespace TGC.Group.Model
 
             //Cargar unJugador
             NaveJugador adminave = new NaveJugador();
-            jugador = adminave.crearInstanciaNave(MediaDir);
+            jugador = adminave.crearInstanciaNave1(MediaDir);
             //Mesh Deathstar
             TgcSceneLoader loader=new TgcSceneLoader();
             Scene= loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml");
@@ -212,7 +212,7 @@ namespace TGC.Group.Model
 
             //Parte nave5
             meshPipeline adminave5 = new meshPipeline();
-            DeathStar5 = adminave5.crearInstanciaNave(MediaDir);
+            DeathStar5 = adminave5.crearInstanciartuveria1(MediaDir);
 
 
             // Hay que arreglar esta parte terreno offline
