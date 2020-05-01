@@ -15,13 +15,28 @@ using TGC.Core.Textures;
 
 namespace TGC.Group.Model
 {
-    class meshPipeline
+    class meshTorreta
     {
-        public TgcMesh crearInstanciartuveria1(string MediaDir)
+        public TgcMesh crearInstanciaTorreta1(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\pipeline-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\torreta-TgcScene.xml").Meshes[0];
+            // Al XWIN le falta una aleta.
+            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+            ship.Technique = "Normal";
+            ship.Position = new TGCVector3(0, 0, 5);
+            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+
+            return ship;
+
+        }
+        public TgcMesh crearInstanciaTorreta2(string MediaDir)
+        {
+            TgcSceneLoader loader = new TgcSceneLoader();
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\torreta2-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
@@ -33,11 +48,11 @@ namespace TGC.Group.Model
 
         }
 
-        public TgcMesh crearInstanciatuveria1(string MediaDir)
+        public TgcMesh crearInstanciaTurboLaser(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\tuberia-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\torreta2-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
@@ -48,5 +63,7 @@ namespace TGC.Group.Model
             return ship;
 
         }
+
+
     }
 }

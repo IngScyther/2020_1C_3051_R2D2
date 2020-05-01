@@ -18,7 +18,7 @@ namespace TGC.Group.Model
     public class NaveJugador
     {
 
-        public TgcMesh crearInstanciaNave(string MediaDir)
+        public TgcMesh crearInstanciaNave1(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
@@ -34,7 +34,23 @@ namespace TGC.Group.Model
 
         }
 
-        
+        public TgcMesh crearInstanciaNave2(string MediaDir)
+        {
+            TgcSceneLoader loader = new TgcSceneLoader();
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\X-Wing-TgcScene.xml").Meshes[0];
+            // Al XWIN le falta una aleta.
+            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+            ship.Technique = "Normal";
+            ship.Position = new TGCVector3(0, 0, 5);
+            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+
+            return ship;
+
+        }
+
+
 
 
 

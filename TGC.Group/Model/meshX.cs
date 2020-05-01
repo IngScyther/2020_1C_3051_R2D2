@@ -15,99 +15,83 @@ using TGC.Core.Textures;
 
 namespace TGC.Group.Model
 {
-    class meshM
+    class meshX
     {
-        public TgcMesh crearInstanciaM1(string MediaDir)
+        public TgcMesh crearInstanciaX1(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m1-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\x1-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
             return ship;
 
         }
 
-        public TgcMesh crearInstanciaM2(string MediaDir)
+        public TgcMesh crearInstanciaX2(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m2-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\x2-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
             return ship;
 
         }
 
-        public TgcMesh crearInstanciaM3(string MediaDir)
+        public TgcMesh crearInstanciaX3(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m3-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\x3-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
             return ship;
 
         }
 
-        public TgcMesh crearInstanciaM4(string MediaDir)
+        public TgcMesh crearInstanciaTorretax4(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m4-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\x4-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
             return ship;
 
         }
 
-        public TgcMesh crearInstanciaM5(string MediaDir)
+        public TgcMesh crearInstanciaX5(string MediaDir)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m5-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\x5-TgcScene.xml").Meshes[0];
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
-
-            return ship;
-
-        }
-
-        public TgcMesh crearInstanciaM6(string MediaDir)
-        {
-            TgcSceneLoader loader = new TgcSceneLoader();
-            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\m6-TgcScene.xml").Meshes[0];
-            // Al XWIN le falta una aleta.
-            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
-            ship.Technique = "Normal";
-            ship.Position = new TGCVector3(0, 0, 5);
-            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 1f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
             return ship;
 

@@ -110,6 +110,9 @@
     <Compile Include="Model\meshDeathstar2.cs" />
     <Compile Include="Model\meshDeathStar.cs" />
     <Compile Include="Model\GameModel.cs" />
+    <Compile Include="Model\meshQ2.cs" />
+    <Compile Include="Model\meshTorreta.cs" />
+    <Compile Include="Model\meshX.cs" />
     <Compile Include="Model\NaveJugador.cs" />
     <Compile Include="Model\SkyBox.cs" />
     <Compile Include="Program.cs" />
