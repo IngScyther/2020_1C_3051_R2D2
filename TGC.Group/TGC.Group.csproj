@@ -103,7 +103,8 @@
     </Compile>
     <Compile Include="Model\CamaraTPEstatica.cs" />
     <Compile Include="Model\CamaraTPMovimiento.cs" />
-    <Compile Include="Model\Class1.cs" />
+    <Compile Include="Model\meshPipeline.cs" />
+    <Compile Include="Model\meshM.cs" />
     <Compile Include="Model\meshHierros.cs" />
     <Compile Include="Model\meshGeodeSphere.cs" />
     <Compile Include="Model\meshDeathstar2.cs" />

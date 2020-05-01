@@ -211,7 +211,7 @@ namespace TGC.Group.Model
             DeathStar4 = adminave4.crearInstanciaNave(MediaDir);
 
             //Parte nave5
-            Class1 adminave5 = new Class1();
+            meshPipeline adminave5 = new meshPipeline();
             DeathStar5 = adminave5.crearInstanciaNave(MediaDir);
 
 
@@ -374,24 +374,24 @@ namespace TGC.Group.Model
             DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
 
-            mostrarArrayPlano(suelos1);
-            mostrarArrayPlano(suelos2);
-            mostrarArrayPlano(suelos3);
+            //mostrarArrayPlano(suelos1);
+            //mostrarArrayPlano(suelos2);
+            //mostrarArrayPlano(suelos3);
             //pared.Render();
             //pared2.Render();
-            mostrarArrayPlano(paredes11);
-            mostrarArrayPlano(paredes12);
-            mostrarArrayPlano(paredes21);
-            mostrarArrayPlano(paredes22);
-            mostrarArrayPlano(paredes31);
-            mostrarArrayPlano(paredes32);
+            //mostrarArrayPlano(paredes11);
+            //mostrarArrayPlano(paredes12);
+            //mostrarArrayPlano(paredes21);
+            //mostrarArrayPlano(paredes22);
+            //mostrarArrayPlano(paredes31);
+            //mostrarArrayPlano(paredes32);
             skyBox.Render();
-            jugador.Render();
-            DeathStar.Render();
-            DeathStar2.Render();
+            //jugador.Render();
+            //DeathStar.Render();
+            //DeathStar2.Render();
             //DeathStar3.Render();
             //DeathStar4.Render();
-            //DeathStar5.Render();
+            DeathStar5.Render();
 
 
 
