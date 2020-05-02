@@ -311,59 +311,75 @@ namespace TGC.Group.Model
 
             jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
+
+            if (Input.keyDown(Key.W)) {
+
+                //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
+                jugador.Position += new TGCVector3(0.1f, 0, 0);
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+
+            }
+            
+            /*
             if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
-                jugador.Position+= new TGCVector3(1, 0, 0);
+                jugador.Position+= new TGCVector3(0.1f, 0, 0);
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+            }*/
+
+            
+            if (Input.keyDown(Key.S))
+            {
+                //Camera.SetCamera((Camera.Position - (objetivo - Camera.Position)), Camera.LookAt - (objetivo - Camera.Position));
+                jugador.Position -= new TGCVector3(0.1f, 0, 0);
                 Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
             }
 
-            
-            if (Input.keyPressed(Key.S))
+            if (Input.keyDown(Key.A))
             {
-                Camera.SetCamera((Camera.Position - (objetivo - Camera.Position)), Camera.LookAt - (objetivo - Camera.Position));
+                //Camera.SetCamera(Camera.Position + new TGCVector3(0, 0, 10f), Camera.LookAt + new TGCVector3(0, 0, 10f));
+                jugador.Position -= new TGCVector3(0, 0, -0.1f);
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
             }
 
-            if (Input.keyPressed(Key.A))
-            {
-                Camera.SetCamera(Camera.Position + new TGCVector3(0, 0, 10f), Camera.LookAt + new TGCVector3(0, 0, 10f));
-            }
-
-            if (Input.keyPressed(Key.D))
+            if (Input.keyDown(Key.D))
             {
                 Camera.SetCamera(Camera.Position + new TGCVector3(0, 0, -10f), Camera.LookAt + new TGCVector3(0, 0, -10f));
+                jugador.Position -= new TGCVector3(0, 0, 0.1f);
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
             }
 
-            if (Input.keyPressed(Key.Space))
+            if (Input.keyDown(Key.Space))
             {
                 Camera.SetCamera(Camera.Position + new TGCVector3(0f, 1f, 0), Camera.LookAt + new TGCVector3(0f, 1f, 0));
             }
 
-            if (Input.keyPressed(Key.LeftControl))
+            if (Input.keyDown(Key.LeftControl))
             {
                 Camera.SetCamera(Camera.Position + new TGCVector3(0, -1f, 0), Camera.LookAt + new TGCVector3(0, -1f, 0));
             }
 
-            if (Input.keyPressed(Key.UpArrow))
+            if (Input.keyDown(Key.UpArrow))
             {
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 5f, 0));
                 objetivo = Camera.LookAt;
             }
 
-            if (Input.keyPressed(Key.DownArrow))
+            if (Input.keyDown(Key.DownArrow))
             {
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -5f, 0));
                 objetivo = Camera.LookAt;
             }
 
-            if (Input.keyPressed(Key.RightArrow))
+            if (Input.keyDown(Key.RightArrow))
             {
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -5f));
                 objetivo = Camera.LookAt;
             }
 
-            if (Input.keyPressed(Key.LeftArrow))
+            if (Input.keyDown(Key.LeftArrow))
             {
                 Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 objetivo = Camera.LookAt;
