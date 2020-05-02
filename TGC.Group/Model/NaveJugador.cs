@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.DirectX.Direct3D;
+using Microsoft.DirectX.DirectInput;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +24,13 @@ namespace TGC.Group.Model
         //Variables del jugador
         TgcMesh meshjugador;
         private const float VELOCIDAD_DESPLAZAMIENTO = 10f;
+        private const float VELOCIDAD_ROTACION = 10f;
         TGCVector3 desplazamiento;
         bool seMovio { set; get; }
         bool seRoto { set; get; }
+        float angulox;
+        float anguloy;
+        float anguloz;
 
 
         public TgcMesh crearInstanciaNave1(string MediaDir)
@@ -62,8 +68,12 @@ namespace TGC.Group.Model
         public void inicializarMovimiento() {
 
             desplazamiento = TGCVector3.Empty;
+            
             seMovio = false;
             seRoto = false;
+            angulox = 0;
+            anguloy = 0;
+            anguloz = 0;
         
         }
 
@@ -131,10 +141,66 @@ namespace TGC.Group.Model
                 meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.Translation(meshjugador.Position);
                 meshjugador.updateBoundingBox();
 
-            }
-                     
+            }          
+
 
         }
+
+        public void rotarArriba()
+        {
+            seRoto = true;
+            anguloz = VELOCIDAD_ROTACION;
+
+
+
+        }
+
+        public void rotarAbajo()
+        {
+            seRoto = true;
+            anguloz = -VELOCIDAD_ROTACION;
+
+        }
+
+        public void rotarIzq()
+        {
+            seRoto = true;
+            anguloy = -VELOCIDAD_ROTACION;
+        }
+
+        public void rotarDerecha()
+        {
+            seRoto = true;
+            anguloy = +VELOCIDAD_ROTACION;
+        }
+
+        public void rotarz(float ElapsedTime, CamaraTPMovimiento Camera)
+        {
+                
+            if (seRoto) { 
+                var rotAngle = Geometry.DegreeToRadian(anguloz * ElapsedTime);
+                meshjugador.Rotation += new TGCVector3(0, 0, rotAngle);
+                Camera.rotateY(rotAngle);
+                Camera.Target = meshjugador.Position;
+                
+            }
+            
+        }
+
+        public void rotary(float ElapsedTime, CamaraTPMovimiento Camera)
+        {
+
+            if (seRoto)
+            {
+                var rotAngle = Geometry.DegreeToRadian(anguloy * ElapsedTime);
+                meshjugador.Rotation += new TGCVector3(0, rotAngle, 0);
+                Camera.rotateY(rotAngle);
+            }
+
+        }
+
+
+
 
         void Render() 
         {

@@ -306,7 +306,7 @@ namespace TGC.Group.Model
 
 
 
-            //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
+            jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
             // Mover Nave
             if (Input.keyDown(Key.W)) {
@@ -370,33 +370,48 @@ namespace TGC.Group.Model
                 //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 5f, 0));
                 //objetivo = Camera.LookAt;
                 //var rotAngle = Geometry.DegreeToRadian(rotate * ElapsedTime);
-                jugador.Rotation += new TGCVector3(0.0f, 0, 0.01f);
+                //jugador.Rotation += new TGCVector3(0, 0, -0.01f);
+                //float a= jugador.Rotation.Z;
+                //Camara1.rotateY(60);
+                //Camara1.setTargetOffset(jugador.Position, -30, a*10, 0);
                 //Camara1.rotateY(10);
+                unJugador.rotarArriba();
+
 
 
             }
+
+            
 
             if (Input.keyDown(Key.DownArrow))
             {
                 //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -5f, 0));
                 //objetivo = Camera.LookAt;
-                jugador.Rotation += new TGCVector3(0.0f, 0, -0.01f);
+                //jugador.Rotation += new TGCVector3(0.0f, 0, -0.01f);
+                unJugador.rotarAbajo();
             }
 
             if (Input.keyDown(Key.RightArrow))
             {
                 //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -5f));
                 //objetivo = Camera.LookAt;
-                jugador.Rotation += new TGCVector3(0, 0.01f, 0);
+                //jugador.Rotation += new TGCVector3(0, 0.01f, 0);
+                unJugador.rotarDerecha();
+
             }
 
             if (Input.keyDown(Key.LeftArrow))
             {
-                jugador.Rotation += new TGCVector3(0, -0.01f, 0);
+                //jugador.Rotation += new TGCVector3(0, -0.01f, 0);
                 //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
                 //objetivo = Camera.LookAt;
+                unJugador.rotarIzq();
 
-            } 
+
+            }
+
+            unJugador.rotary(ElapsedTime, Camara1);
+            unJugador.rotarz(ElapsedTime, Camara1);
 
             PostUpdate();
         }
