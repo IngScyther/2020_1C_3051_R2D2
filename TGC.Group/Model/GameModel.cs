@@ -60,6 +60,7 @@ namespace TGC.Group.Model
         private TGCVector3 objetivo;
 
         TgcScene Scene;
+        NaveJugador unJugador;
 
         TgcSkyBox skyBox;
         CamaraTPEstatica Camara0;
@@ -190,8 +191,8 @@ namespace TGC.Group.Model
             skyBox = adminskybox.crearcielo1(MediaDir);
 
             //Cargar unJugador
-            NaveJugador adminave = new NaveJugador();
-            jugador = adminave.crearInstanciaNave1(MediaDir);
+            unJugador = new NaveJugador();
+            jugador = unJugador.crearInstanciaNave1(MediaDir);
 
             //Parte nave1
             meshDeathStar adminave1 = new meshDeathStar();
@@ -300,25 +301,24 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-            /* posicionCamara = Camera.Position;
+
+            unJugador.inicializarMovimiento();
 
 
-             //Hay que ver como calcular esto.
-             objetivo = Camera.LookAt;
 
-             Camara1.UpdateCamera(ElapsedTime);
-             jugador.Position+= new TGCVector3(0, 0, 1);*/
+            //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
-            jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
-
-
+            // Mover Nave
             if (Input.keyDown(Key.W)) {
 
-                //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
-                jugador.Position += new TGCVector3(0.1f, 0, 0);
-                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+                
+                unJugador.avanzar(ElapsedTime);
 
             }
+
+
+
+            
             
             /*
             if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
@@ -332,57 +332,69 @@ namespace TGC.Group.Model
             
             if (Input.keyDown(Key.S))
             {
-                //Camera.SetCamera((Camera.Position - (objetivo - Camera.Position)), Camera.LookAt - (objetivo - Camera.Position));
-                jugador.Position -= new TGCVector3(0.1f, 0, 0);
-                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+                
+                unJugador.retroceder(ElapsedTime);
+
             }
 
             if (Input.keyDown(Key.A))
             {
-                //Camera.SetCamera(Camera.Position + new TGCVector3(0, 0, 10f), Camera.LookAt + new TGCVector3(0, 0, 10f));
-                jugador.Position -= new TGCVector3(0, 0, -0.1f);
-                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+                unJugador.desplazarLateralIzq(ElapsedTime);
+                
             }
 
             if (Input.keyDown(Key.D))
             {
-                Camera.SetCamera(Camera.Position + new TGCVector3(0, 0, -10f), Camera.LookAt + new TGCVector3(0, 0, -10f));
-                jugador.Position -= new TGCVector3(0, 0, 0.1f);
-                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+                unJugador.desplazarLateralDer(ElapsedTime);
+                
             }
 
             if (Input.keyDown(Key.Space))
             {
-                Camera.SetCamera(Camera.Position + new TGCVector3(0f, 1f, 0), Camera.LookAt + new TGCVector3(0f, 1f, 0));
+                unJugador.desplazarArriba(ElapsedTime);
+                
             }
 
             if (Input.keyDown(Key.LeftControl))
             {
-                Camera.SetCamera(Camera.Position + new TGCVector3(0, -1f, 0), Camera.LookAt + new TGCVector3(0, -1f, 0));
+                unJugador.desplazarAbajo(ElapsedTime);
+                
             }
 
+            unJugador.mover();
+            Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+
+            // RotarNave
             if (Input.keyDown(Key.UpArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 5f, 0));
-                objetivo = Camera.LookAt;
+                //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 5f, 0));
+                //objetivo = Camera.LookAt;
+                //var rotAngle = Geometry.DegreeToRadian(rotate * ElapsedTime);
+                jugador.Rotation += new TGCVector3(0.0f, 0, 0.01f);
+                //Camara1.rotateY(10);
+
+
             }
 
             if (Input.keyDown(Key.DownArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -5f, 0));
-                objetivo = Camera.LookAt;
+                //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, -5f, 0));
+                //objetivo = Camera.LookAt;
+                jugador.Rotation += new TGCVector3(0.0f, 0, -0.01f);
             }
 
             if (Input.keyDown(Key.RightArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -5f));
-                objetivo = Camera.LookAt;
+                //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, -5f));
+                //objetivo = Camera.LookAt;
+                jugador.Rotation += new TGCVector3(0, 0.01f, 0);
             }
 
             if (Input.keyDown(Key.LeftArrow))
             {
-                Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
-                objetivo = Camera.LookAt;
+                jugador.Rotation += new TGCVector3(0, -0.01f, 0);
+                //Camera.SetCamera(Camera.Position, Camera.LookAt + new TGCVector3(0, 0, 5f));
+                //objetivo = Camera.LookAt;
 
             } 
 
