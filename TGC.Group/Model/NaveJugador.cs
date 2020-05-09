@@ -24,7 +24,7 @@ namespace TGC.Group.Model
         //Variables del jugador
         TgcMesh meshjugador;
         private const float VELOCIDAD_DESPLAZAMIENTO = 10f;
-        private const float VELOCIDAD_ROTACION = 100f;
+        private const float VELOCIDAD_ROTACION = 120f;
         TGCVector3 desplazamiento;
         bool seMovio { set; get; }
         bool seMoviox { set; get; }
@@ -189,14 +189,12 @@ namespace TGC.Group.Model
         {
             seRoto = true;
             anguloz = VELOCIDAD_ROTACION;
-
         }
 
         public void rotarAbajo()
         {
             seRoto = true;
             anguloz = -VELOCIDAD_ROTACION;
-
         }
 
         public void rotarIzq()
@@ -208,7 +206,7 @@ namespace TGC.Group.Model
         public void rotarDerecha()
         {
             seRoto = true;
-            anguloy = +VELOCIDAD_ROTACION;
+            anguloy = VELOCIDAD_ROTACION;
         }
 
         public void rotarz(float ElapsedTime, CamaraTPMovimiento Camera)
@@ -224,14 +222,15 @@ namespace TGC.Group.Model
             
         }
 
-        public void rotary(float ElapsedTime, CamaraTPMovimiento Camera)
+        public CamaraTPMovimiento rotary(float ElapsedTime, CamaraTPMovimiento Camera)
         {
             if (seRoto)
             {
                 var rotAngle = Geometry.DegreeToRadian(anguloy * ElapsedTime);
                 meshjugador.Rotation += new TGCVector3(0, rotAngle, 0);
-                //Camera.rotateY(rotAngle);
+                Camera.rotateY(-rotAngle* ElapsedTime);
             }
+            return Camera;
         }
 
 

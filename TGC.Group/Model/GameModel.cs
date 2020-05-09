@@ -365,18 +365,18 @@ namespace TGC.Group.Model
             if (Input.keyDown(Key.RightArrow))
             {
                 unJugador.rotarDerecha();
-                rotarEnY += 120f;
-                Camara1.rotateY(rotarEnY);
+                //rotarEnY += 120f;
+                //Camara1.rotateY(rotarEnY);
             }
 
             if (Input.keyDown(Key.LeftArrow))
             {
                 unJugador.rotarIzq();
-                rotarEnY -= 120f;
-                Camara1.rotateY(rotarEnY);
+                //rotarEnY -= 120f;
+                //Camara1.rotateY(rotarEnY);
             }
 
-            unJugador.rotary(ElapsedTime, Camara1);
+            Camera = unJugador.rotary(ElapsedTime, Camara1);
             //unJugador.rotarz(ElapsedTime, Camara1);
 
             PostUpdate();
