@@ -148,7 +148,7 @@ namespace TGC.Group.Model
 
                 var moveF = Vuela * ElapsedTime;
                 var x = (float)Math.Cos(meshjugador.Rotation.Y) * moveF;
-                var z = (float)Math.Sin(meshjugador.Rotation.Y) * moveF;
+                var z = -(float)Math.Sin(meshjugador.Rotation.Y) * moveF;
 
                 meshjugador.Position += new TGCVector3(x, 0, z);
 
@@ -200,13 +200,13 @@ namespace TGC.Group.Model
         public void rotarIzq()
         {
             seRoto = true;
-            anguloy = -VELOCIDAD_ROTACION;
+            anguloy = VELOCIDAD_ROTACION;
         }
 
         public void rotarDerecha()
         {
             seRoto = true;
-            anguloy = VELOCIDAD_ROTACION;
+            anguloy = -VELOCIDAD_ROTACION;
         }
 
         public void rotarz(float ElapsedTime, CamaraTPMovimiento Camera)
@@ -226,9 +226,13 @@ namespace TGC.Group.Model
         {
             if (seRoto)
             {
-                var rotAngle = Geometry.DegreeToRadian(anguloy * ElapsedTime);
+                var rotAngle = Geometry.DegreeToRadian(-anguloy * ElapsedTime);
                 meshjugador.Rotation += new TGCVector3(0, rotAngle, 0);
-                Camera.rotateY(-rotAngle* ElapsedTime);
+                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
+                                      TGCMatrix.Translation(meshjugador.Position);
+
+                Camera.rotateY(rotAngle* ElapsedTime);
             }
             return Camera;
         }
