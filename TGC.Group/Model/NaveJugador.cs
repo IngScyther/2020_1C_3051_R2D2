@@ -28,6 +28,7 @@ namespace TGC.Group.Model
         TGCVector3 desplazamiento;
         bool seMovio { set; get; }
         bool seMoviox { set; get; }
+        bool seMovioxx { set; get; }
         bool seRoto { set; get; }
         float angulox;
         float anguloy;
@@ -74,6 +75,7 @@ namespace TGC.Group.Model
             Vuelax = 0;
             seMovio = false;
             seMoviox = false;
+            seMovioxx = false;
             seRoto = false;
             angulox = 0;
             anguloy = 0;
@@ -120,8 +122,9 @@ namespace TGC.Group.Model
         public TGCVector3 desplazarArriba()
         {
             //Hay que saber que es lo que es la derecha
-            seMovio = true;
-            desplazamiento.Y = VELOCIDAD_DESPLAZAMIENTO;
+            seMovioxx = true;
+            Vuelax = VELOCIDAD_DESPLAZAMIENTO;
+            //desplazamiento.Y = VELOCIDAD_DESPLAZAMIENTO;
             return desplazamiento;
 
         }
@@ -129,8 +132,9 @@ namespace TGC.Group.Model
         public TGCVector3 desplazarAbajo(float elapsedTime)
         {
             //Hay que saber que es lo que es la derecha
-            seMovio = true;
-            desplazamiento.Y = -VELOCIDAD_DESPLAZAMIENTO * elapsedTime;
+            seMovioxx = true;
+            Vuelax = -VELOCIDAD_DESPLAZAMIENTO;
+            //desplazamiento.Y = -VELOCIDAD_DESPLAZAMIENTO * elapsedTime;
             return desplazamiento;
 
         }
@@ -182,6 +186,28 @@ namespace TGC.Group.Model
 
             }
 
+            if (seMovioxx)
+            {
+
+                //meshjugador.Position = meshjugador.Position + desplazamiento;
+                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
+                meshjugador.updateBoundingBox();
+                //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
+
+                var moveF = Vuelax * ElapsedTime;
+                float y = moveF;
+                //var z = (float)Math.Cos(meshjugador.Rotation.Y) * moveF;
+                //var x = (float)Math.Sin(meshjugador.Rotation.Y) * moveF;
+
+                meshjugador.Position += new TGCVector3(0, y, 0);
+
+                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
+                                      TGCMatrix.Translation(meshjugador.Position);
+
+                Camara1.Target = meshjugador.Position;
+
+            }
 
         }
 
@@ -222,7 +248,7 @@ namespace TGC.Group.Model
             
         }
 
-        public CamaraTPMovimiento rotary(float ElapsedTime, CamaraTPMovimiento Camera)
+        public float rotary(float ElapsedTime)
         {
             if (seRoto)
             {
@@ -232,9 +258,30 @@ namespace TGC.Group.Model
                                       TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
                                       TGCMatrix.Translation(meshjugador.Position);
 
-                Camera.rotateY(rotAngle* ElapsedTime);
+                //Camera.rotateY(rotAngle* ElapsedTime);
+                float a = -anguloy * ElapsedTime;
+
+                if (a >= 360) {
+
+                   a = a%360;
+                }
+
+                return a;
+
             }
-            return Camera;
+            else {
+
+                return 0;
+
+            }
+            
+        }
+
+
+        public TGCVector3 Position() {
+
+            return meshjugador.Position;
+
         }
 
 

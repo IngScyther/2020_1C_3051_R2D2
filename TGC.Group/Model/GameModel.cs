@@ -1,5 +1,7 @@
 using Microsoft.DirectX.DirectInput;
+using System;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 using TGC.Core.Camara;
 using TGC.Core.Direct3D;
 using TGC.Core.Example;
@@ -281,7 +283,7 @@ namespace TGC.Group.Model
             
             //Camara1.Eye = new TGCVector3(-10, 10, 5);
             //Camara1.UpdateCamera(ElapsedTime);
-            Camara1.setTargetOffset(new TGCVector3(0, 0, 5), -30, 5,0);
+            Camara1.setTargetOffset(new TGCVector3(0, 0, 5), -30, 0,0);
             //Camara1.SetCamera(new TGCVector3(-10, 10, 5), new TGCVector3(0, 0, 5));
             
             //Camara1.Eye = new TGCVector3(0, 0, 5);
@@ -307,9 +309,9 @@ namespace TGC.Group.Model
 
 
             unJugador.inicializarMovimiento();
-            rotarEnY = 0;
+            //rotarEnY = 0;
             //Meterlo en un procedimiento.
-            jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
+            //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
             /*
             if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
@@ -354,9 +356,12 @@ namespace TGC.Group.Model
             // RotarNave
             if (Input.keyDown(Key.UpArrow))
             {
-                unJugador.rotarArriba();      
+                unJugador.rotarArriba();
+                //Camara1.rotateY(100 * ElapsedTime);
             }
-            
+
+            //Camara1.rotateY(10 * ElapsedTime);
+
             if (Input.keyDown(Key.DownArrow))
             {
                 unJugador.rotarAbajo();
@@ -366,7 +371,7 @@ namespace TGC.Group.Model
             {
                 unJugador.rotarDerecha();
                 //rotarEnY += 120f;
-                //Camara1.rotateY(rotarEnY);
+                //Camara1.rotateY(120f * ElapsedTime);
             }
 
             if (Input.keyDown(Key.LeftArrow))
@@ -376,13 +381,24 @@ namespace TGC.Group.Model
                 //Camara1.rotateY(rotarEnY);
             }
 
-            Camera = unJugador.rotary(ElapsedTime, Camara1);
+            //Camara1.rotateY(10 * ElapsedTime);
+            //Camara1.rotateY(rotarEnY * ElapsedTime);
+
+
+            //rotarEnY += a*100;
+            //rotarEnY += 0.01f;
+
+            float X = (Camera.Position.X - unJugador.Position().X);
+            float Z = (Camera.Position.Z - unJugador.Position().Z);
+            double sqrt = Math.Sqrt(X * X + Z * Z);
+            Camara1.rotateY(((float)sqrt * 10 * unJugador.rotary(ElapsedTime)));
+            Camera = Camara1;
+            //Camera = unJugador.rotary(ElapsedTime, Camara1);
             //unJugador.rotarz(ElapsedTime, Camara1);
 
             PostUpdate();
         }
-
-        /// <summary>
+        
         ///     Se llama cada vez que hay que refrescar la pantalla.
         ///     Escribir aquí todo el código referido al renderizado.
         ///     Borrar todo lo que no haga falta.
