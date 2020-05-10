@@ -391,10 +391,8 @@ namespace TGC.Group.Model
             float X = (Camera.Position.X - unJugador.Position().X);
             float Z = (Camera.Position.Z - unJugador.Position().Z);
             double sqrt = Math.Sqrt(X * X + Z * Z);
-            Camara1.rotateY(((float)sqrt * 10 * unJugador.rotary(ElapsedTime)));
-            Camera = Camara1;
-            //Camera = unJugador.rotary(ElapsedTime, Camara1);
-            //unJugador.rotarz(ElapsedTime, Camara1);
+            Camara1.rotateY(((float)sqrt * 1 * unJugador.rotary(ElapsedTime)));
+
 
             PostUpdate();
         }
