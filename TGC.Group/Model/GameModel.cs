@@ -254,9 +254,9 @@ namespace TGC.Group.Model
             //Pasillo 3 (6x10,0,6x10) -> (6x10,0,12x10)
             //int posz = 8* escala;
 
-            suelos3 = completarLineaDeSuelosX(6, pathTexturaCaja, 6 * escala, 0, 6 * escala, escala);
-            paredes31 = completarParedZ(5, pathTexturaCaja3, (1 + 6) * escala, 0, 6 * escala, escala);
-            paredes32 = completarParedZ((1 + 5), pathTexturaCaja3, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
+            suelos3 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
+            paredes31 = completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
+            paredes32 = completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
 
             
             // Hay que arreglar esta parte.
@@ -283,7 +283,7 @@ namespace TGC.Group.Model
             
             //Camara1.Eye = new TGCVector3(-10, 10, 5);
             //Camara1.UpdateCamera(ElapsedTime);
-            Camara1.setTargetOffset(new TGCVector3(0, 0, 5), -30, 0,0);
+            Camara1.setTargetOffset(new TGCVector3(0, 0, 5), -30, 5,0);
             //Camara1.SetCamera(new TGCVector3(-10, 10, 5), new TGCVector3(0, 0, 5));
             
             //Camara1.Eye = new TGCVector3(0, 0, 5);
@@ -313,13 +313,13 @@ namespace TGC.Group.Model
             //Meterlo en un procedimiento.
             //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
-            /*
+            
             if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
-                jugador.Position+= new TGCVector3(0.1f, 0, 0);
-                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
-            }*/
+                //jugador.Position+= new TGCVector3(0.1f, 0, 0);
+                Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
+            }
             // Mover Nave
             if (Input.keyDown(Key.W))
             {
@@ -333,13 +333,14 @@ namespace TGC.Group.Model
 
             if (Input.keyDown(Key.A))
             {
-                unJugador.desplazarLateralIzq();   
+                unJugador.desplazarLateralIzq();
             }
 
             if (Input.keyDown(Key.D))
             {
                 unJugador.desplazarLateralDer();
             }
+
 
             if (Input.keyDown(Key.Space))
             {
@@ -351,7 +352,32 @@ namespace TGC.Group.Model
                 unJugador.desplazarAbajo(ElapsedTime);
             }
             unJugador.mover(Camara1, ElapsedTime);
-            
+
+            // Botones raros. No se por que no rota-
+
+            if (Input.keyDown(Key.Q))
+            {
+                Camara1.rotateY(+10000*ElapsedTime);
+                Camara1.UpdateCamera(ElapsedTime);
+            }
+
+            if (Input.keyDown(Key.E))
+            {
+                Camara1.rotateY(-10000* ElapsedTime);
+                Camara1.UpdateCamera(ElapsedTime);
+            }
+
+            if (Input.keyDown(Key.I))
+            {
+                Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
+            }
+
+            if (Input.keyDown(Key.U))
+            {
+
+                Camara1.setTargetOffset(jugador.Position, -30, 5, 0);
+            }
+
 
             // RotarNave
             if (Input.keyDown(Key.UpArrow))
@@ -391,7 +417,7 @@ namespace TGC.Group.Model
             float X = (Camera.Position.X - unJugador.Position().X);
             float Z = (Camera.Position.Z - unJugador.Position().Z);
             double sqrt = Math.Sqrt(X * X + Z * Z);
-            Camara1.rotateY(((float)sqrt * 1 * unJugador.rotary(ElapsedTime)));
+            Camara1.rotateY(((float)sqrt * 9f * unJugador.rotary(ElapsedTime)));
 
 
             PostUpdate();
@@ -412,19 +438,19 @@ namespace TGC.Group.Model
 
 
             mostrarArrayPlano(suelos1);
-            //mostrarArrayPlano(suelos2);
-            //mostrarArrayPlano(suelos3);
+            mostrarArrayPlano(suelos2);
+            mostrarArrayPlano(suelos3);
             //pared.Render();
             //pared2.Render();
             mostrarArrayPlano(paredes11);
             mostrarArrayPlano(paredes12);
-            //mostrarArrayPlano(paredes21);
-            //mostrarArrayPlano(paredes22);
-            //mostrarArrayPlano(paredes31);
-            //mostrarArrayPlano(paredes32);
+            mostrarArrayPlano(paredes21);
+            mostrarArrayPlano(paredes22);
+            mostrarArrayPlano(paredes31);
+            mostrarArrayPlano(paredes32);
             skyBox.Render();
             jugador.Render();
-            //DeathStar.Render();
+            DeathStar.Render();
             //DeathStar2.Render();
             //DeathStar3.Render();
             //DeathStar4.Render();

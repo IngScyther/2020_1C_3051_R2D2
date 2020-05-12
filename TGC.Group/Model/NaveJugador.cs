@@ -264,9 +264,10 @@ namespace TGC.Group.Model
                 if (a >= 360) {
 
                    a = a%360;
+                    a *= 360;
                 }
 
-                return a;
+                return Geometry.RadianToDegree(rotAngle);
 
             }
             else {

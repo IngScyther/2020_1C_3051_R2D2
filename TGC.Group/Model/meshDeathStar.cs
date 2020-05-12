@@ -26,7 +26,7 @@ namespace TGC.Group.Model
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
-            ship.Position = new TGCVector3(0, 0, 5);
+            ship.Position = new TGCVector3(0, 20, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
