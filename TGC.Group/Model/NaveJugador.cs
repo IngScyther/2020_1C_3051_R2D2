@@ -15,6 +15,7 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
 using TGC.Core.Terrain;
 using TGC.Core.Textures;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -30,12 +31,13 @@ namespace TGC.Group.Model
         bool seMoviox { set; get; }
         bool seMovioxx { set; get; }
         bool seRoto { set; get; }
+        bool atacar { set; get; }
         float angulox;
         float anguloy;
         float anguloz;
         float Vuela;
         float Vuelax;
-
+        private TgcArrow directionArrow;
 
         public TgcMesh crearInstanciaNave1(string MediaDir)
         {
@@ -49,7 +51,19 @@ namespace TGC.Group.Model
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
             meshjugador = ship;
+            
+
+            // Arma Laser
+
+            //Crear linea para mostrar la direccion del movimiento del personaje
+            directionArrow = new TgcArrow();
+            directionArrow.BodyColor = Color.Red;
+            directionArrow.HeadColor = Color.Red;
+            directionArrow.Thickness = 1;
+            directionArrow.HeadSize = new TGCVector2(10, 20);
+
             return ship;
+
 
         }
 
@@ -77,6 +91,8 @@ namespace TGC.Group.Model
             seMoviox = false;
             seMovioxx = false;
             seRoto = false;
+            atacar = false;
+
             angulox = 0;
             anguloy = 0;
             anguloz = 0;
@@ -278,6 +294,18 @@ namespace TGC.Group.Model
             
         }
 
+        public void disparar() {
+
+
+
+            atacar = true;
+            directionArrow.PStart = meshjugador.Position;
+            directionArrow.PEnd = meshjugador.Position + new TGCVector3(1,0,0) * 1000 ;
+            directionArrow.updateValues();
+
+
+        }
+
 
         public TGCVector3 Position() {
 
@@ -288,9 +316,18 @@ namespace TGC.Group.Model
 
 
 
-        void Render() 
+
+
+        public void Render() 
         {
             meshjugador.Render();
+
+            if (atacar == true) {
+            
+                directionArrow.Render();
+            
+            }
+
         }
 
     }

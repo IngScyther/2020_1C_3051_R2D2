@@ -201,12 +201,12 @@ namespace TGC.Group.Model
             meshDeathStar adminave1 = new meshDeathStar();
             DeathStar = adminave1.crearInstanciaNave(MediaDir);
 
-            //Parte nave2
-            meshDeathstar2 adminave2 = new meshDeathstar2();
-            DeathStar2 = adminave2.crearInstanciaNave(MediaDir);
+            //Parte torreta1
+            meshTorreta adminave2 = new meshTorreta();
+            DeathStar2 = adminave2.crearInstanciaTurboLaser(MediaDir);
 
-            //Parte nave3
-            meshGeodeSphere adminave3 = new meshGeodeSphere();
+            //Parte Q2
+            meshQ2 adminave3 = new meshQ2();
             DeathStar3 = adminave3.crearInstanciaNave(MediaDir);
 
             //Parte nave4
@@ -318,7 +318,9 @@ namespace TGC.Group.Model
             {
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
                 //jugador.Position+= new TGCVector3(0.1f, 0, 0);
-                Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
+                //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
+                unJugador.disparar();
+
             }
             // Mover Nave
             if (Input.keyDown(Key.W))
@@ -449,9 +451,10 @@ namespace TGC.Group.Model
             mostrarArrayPlano(paredes31);
             mostrarArrayPlano(paredes32);
             skyBox.Render();
-            jugador.Render();
+            //jugador.Render();
+            unJugador.Render();
             DeathStar.Render();
-            //DeathStar2.Render();
+            DeathStar2.Render();
             //DeathStar3.Render();
             //DeathStar4.Render();
             //DeathStar5.Render();
