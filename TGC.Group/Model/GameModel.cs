@@ -36,19 +36,19 @@ namespace TGC.Group.Model
         }
 
         //Definimos estructuras
-        private TgcPlane suelo;
+        //private TgcPlane suelo;
 
-        private TgcPlane[] suelos1;
-        private TgcPlane[] paredes11;
-        private TgcPlane[] paredes12;
-        private TgcPlane[] suelos2;
-        private TgcPlane[] paredes21;
-        private TgcPlane[] paredes22;
-        private TgcPlane[] suelos3;
-        private TgcPlane[] paredes31;
-        private TgcPlane[] paredes32;
-        private TgcPlane pared;
-        private TgcPlane pared2;
+        //private TgcPlane[] suelos1;
+        //private TgcPlane[] paredes11;
+        //private TgcPlane[] paredes12;
+        //private TgcPlane[] suelos2;
+        //private TgcPlane[] paredes21;
+       // private TgcPlane[] paredes22;
+        //private TgcPlane[] suelos3;
+        //private TgcPlane[] paredes31;
+        //private TgcPlane[] paredes32;
+       // private TgcPlane pared;
+       // private TgcPlane pared2;
 
         
 
@@ -227,41 +227,41 @@ namespace TGC.Group.Model
             //Textura de la carperta Media. Game.Default es un archivo de configuracion (Game.settings) util para poner cosas.
             //Pueden abrir el Game.settings que se ubica dentro de nuestro proyecto para configurar.
             //Esta textura despues la cambiamos.
-            var pathTexturaCaja = MediaDir + Game.Default.TexturaCaja;
-            var texturaPisoDeMetal = MediaDir + "//Metal-floor_.png";
-            var pathTexturaCaja3 = MediaDir + "//Piso2.jpg";
-            var texturaEstrella = MediaDir + "//Color_002.jpg";
+            //var pathTexturaCaja = MediaDir + Game.Default.TexturaCaja;
+            //var texturaPisoDeMetal = MediaDir + "//Metal-floor_.png";
+            //var pathTexturaCaja3 = MediaDir + "//Piso2.jpg";
+            //var texturaEstrella = MediaDir + "//Color_002.jpg";
 
             //var pathTexturaCaja3 = MediaDir + "//stones.bpn";
             // var pathTexturaCaja3 = MediaDir + Game.Default.TexturaCaja;
 
             //Cargamos una textura, tener en cuenta que cargar una textura significa crear una copia en memoria.
             //Es importante cargar texturas en Init, si se hace en el render loop podemos tener grandes problemas si instanciamos muchas.
-            var pisoTexture = TgcTexture.createTexture(pathTexturaCaja);
+            //var pisoTexture = TgcTexture.createTexture(pathTexturaCaja);
 
             //Definimos caracteristicas del suelo
             //suelo = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(50, 50, 50), TgcPlane.Orientations.XZplane, pisoTexture, 10f, 10f);
 
-            int cantidadEspacio1 = 4;
-            int escala = 10;
+            //int cantidadEspacio1 = 4;
+            //int escala = 10;
             // Pasillo 1 (0,0,0) -> (6x10,0,0)
 
-            suelos1 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
-            paredes11 = completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
-            paredes12 = completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
+            //suelos1 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
+            //paredes11 = completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
+            //paredes12 = completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
 
             //Pasillo 2 (6x10,0,0) -> (6x10,0,6x10)
 
-            suelos2 = completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
-            paredes21 = completarParedX(6, texturaEstrella, (1 + 6) * escala, 0, 0, escala);
-            paredes22 = completarParedX(6, texturaEstrella, (0 + 6) * escala, 0, 1 * escala, escala);
+            //suelos2 = completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
+            //paredes21 = completarParedX(6, texturaEstrella, (1 + 6) * escala, 0, 0, escala);
+            //paredes22 = completarParedX(6, texturaEstrella, (0 + 6) * escala, 0, 1 * escala, escala);
 
             //Pasillo 3 (6x10,0,6x10) -> (6x10,0,12x10)
             //int posz = 8* escala;
 
-            suelos3 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
-            paredes31 = completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
-            paredes32 = completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
+            //suelos3 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
+            //paredes31 = completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
+            //paredes32 = completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
 
             
             // Hay que arreglar esta parte.

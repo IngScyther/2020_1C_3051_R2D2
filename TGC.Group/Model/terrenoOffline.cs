@@ -82,7 +82,7 @@ namespace TGC.Group.Model
             {
                 //Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
                 paredZ = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
-                //X += escala;
+                X += escala;
                 terreno.Add(paredZ);
             }
         }
