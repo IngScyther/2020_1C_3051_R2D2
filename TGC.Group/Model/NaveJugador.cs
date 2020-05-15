@@ -34,6 +34,7 @@ namespace TGC.Group.Model
         bool atacar { set; get; }
         float angulox;
         float anguloy;
+        float rotacionTotalY;
         float anguloz;
         float Vuela;
         float Vuelax;
@@ -59,8 +60,13 @@ namespace TGC.Group.Model
             directionArrow = new TgcArrow();
             directionArrow.BodyColor = Color.Red;
             directionArrow.HeadColor = Color.Red;
-            directionArrow.Thickness = 1;
-            directionArrow.HeadSize = new TGCVector2(10, 20);
+            directionArrow.Thickness = 0.1f;
+            directionArrow.HeadSize = new TGCVector2(1, 2);
+
+            angulox = 0;
+            anguloy = 0;
+            anguloz = 0;
+            rotacionTotalY = FastMath.PI_HALF;
 
             return ship;
 
@@ -93,9 +99,7 @@ namespace TGC.Group.Model
             seRoto = false;
             atacar = false;
 
-            angulox = 0;
-            anguloy = 0;
-            anguloz = 0;
+
         
         }
 
@@ -283,7 +287,9 @@ namespace TGC.Group.Model
                     a *= 360;
                 }
 
-                return Geometry.RadianToDegree(rotAngle);
+                rotacionTotalY += rotAngle;
+
+                return rotAngle;
 
             }
             else {
@@ -297,10 +303,17 @@ namespace TGC.Group.Model
         public void disparar() {
 
 
+            // 7) Tenemos un objeto que rota un cierto angulo en Y (ej: un auto) y queremos saber los componentes X,Z para donde tiene que avanzar al moverse
+            //var rotacionY = FastMath.PI_HALF;
+            var componenteX = FastMath.Sin(rotacionTotalY);
+            var componenteZ = FastMath.Cos(rotacionTotalY);
+            // float velocidadMovimiento = 100; //Ojo que este valor deberia siempre multiplicarse por el elapsedTime
+            //var movimientoAdelante = new TGCVector3(componenteX * velocidadMovimiento, 0, componenteZ * velocidadMovimiento);
+
 
             atacar = true;
             directionArrow.PStart = meshjugador.Position;
-            directionArrow.PEnd = meshjugador.Position + new TGCVector3(1,0,0) * 1000 ;
+            directionArrow.PEnd = meshjugador.Position + new TGCVector3(componenteX, 0, componenteZ) * 100;
             directionArrow.updateValues();
 
 

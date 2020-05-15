@@ -49,6 +49,7 @@ namespace TGC.Group.Model
         private TgcPlane[] paredes32;
         private TgcPlane pared;
         private TgcPlane pared2;
+
         
 
         private TgcMesh jugador;
@@ -57,6 +58,8 @@ namespace TGC.Group.Model
         private TgcMesh DeathStar3;
         private TgcMesh DeathStar4;
         private TgcMesh DeathStar5;
+
+        private terrenoOffline terreno;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
@@ -217,6 +220,8 @@ namespace TGC.Group.Model
             meshPipeline adminave5 = new meshPipeline();
             DeathStar5 = adminave5.crearInstanciartuveria1(MediaDir);
 
+            //Creamos terreno
+            terreno = new terrenoOffline(MediaDir);
 
             // Hay que arreglar esta parte terreno offline
             //Textura de la carperta Media. Game.Default es un archivo de configuracion (Game.settings) util para poner cosas.
@@ -438,18 +443,18 @@ namespace TGC.Group.Model
             DrawText.drawText("Con la tecla F NO se dibuja el bounding box.", 0, 20, Color.LightSalmon);
             DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
-
-            mostrarArrayPlano(suelos1);
-            mostrarArrayPlano(suelos2);
-            mostrarArrayPlano(suelos3);
+            terreno.mostrarTerreno();
+            //mostrarArrayPlano(suelos1);
+            //mostrarArrayPlano(suelos2);
+            //mostrarArrayPlano(suelos3);
             //pared.Render();
             //pared2.Render();
-            mostrarArrayPlano(paredes11);
-            mostrarArrayPlano(paredes12);
-            mostrarArrayPlano(paredes21);
-            mostrarArrayPlano(paredes22);
-            mostrarArrayPlano(paredes31);
-            mostrarArrayPlano(paredes32);
+            //mostrarArrayPlano(paredes11);
+            //mostrarArrayPlano(paredes12);
+            //mostrarArrayPlano(paredes21);
+            //mostrarArrayPlano(paredes22);
+            //mostrarArrayPlano(paredes31);
+            //mostrarArrayPlano(paredes32);
             skyBox.Render();
             //jugador.Render();
             unJugador.Render();
