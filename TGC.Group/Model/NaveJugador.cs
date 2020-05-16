@@ -16,6 +16,7 @@ using TGC.Core.Shaders;
 using TGC.Core.Terrain;
 using TGC.Core.Textures;
 using System.Drawing;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
@@ -39,6 +40,9 @@ namespace TGC.Group.Model
         float Vuela;
         float Vuelax;
         private TgcArrow directionArrow;
+        public TgcRay rayo1;
+        //public TgcPickingRay rayo2;
+
 
         public TgcMesh crearInstanciaNave1(string MediaDir)
         {
@@ -300,7 +304,7 @@ namespace TGC.Group.Model
             
         }
 
-        public void disparar() {
+        public TgcRay disparar() {
 
 
             // 7) Tenemos un objeto que rota un cierto angulo en Y (ej: un auto) y queremos saber los componentes X,Z para donde tiene que avanzar al moverse
@@ -315,6 +319,10 @@ namespace TGC.Group.Model
             directionArrow.PStart = meshjugador.Position;
             directionArrow.PEnd = meshjugador.Position + new TGCVector3(componenteX, 0, componenteZ) * 100;
             directionArrow.updateValues();
+
+            rayo1 = new TgcRay(meshjugador.Position, new TGCVector3(componenteX, 0, componenteZ) * 100);
+
+            return rayo1;
 
 
         }

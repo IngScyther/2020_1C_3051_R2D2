@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TGC.Core.Collision;
 using TGC.Core.Geometry;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
@@ -13,7 +14,7 @@ namespace TGC.Group.Model
     class ObjetoRompible
     {
         public bool vivo; //Si esta vivo va TRUE
-        public bool reviboDaño;
+        public bool reciboDaño;
         public float vida; //ValorPositivo, sino muere.
         public TgcMesh miMesh;
         public TGCBox Box; //ProbarAIM
@@ -22,13 +23,22 @@ namespace TGC.Group.Model
 
             vivo = true;
             vida = 100;
-            Box = TGCBox.fromSize(new TGCVector3(-50, 10, -20), new TGCVector3(15, 15, 15), Color.Violet);
+            Box = TGCBox.fromSize(new TGCVector3(40, 10, -10), new TGCVector3(15, 15, 15), Color.Violet);
+
+        }
+
+        public ObjetoRompible(float X, float Y, float Z, float Escala)
+        {
+
+            vivo = true;
+            vida = 100;
+            Box = TGCBox.fromSize(new TGCVector3(X, Y, -Z), new TGCVector3(Escala, Escala, Escala), Color.Violet);
 
         }
 
         public void perdervida() {
 
-            if (reviboDaño == true) 
+            if (reciboDaño == true) 
             {
                 Box.Color = Color.Red;
                 Box.updateValues();
@@ -45,12 +55,28 @@ namespace TGC.Group.Model
         }
 
         public void esDañado() {
-            
-            reviboDaño = true;
+
+            reciboDaño = true;
         }
 
+        public void esDañadoBounding(TgcRay rayo)
+        {
+            TGCVector3 intersection;
+            bool pego = TgcCollisionUtils.intersectRayAABB(rayo, Box.BoundingBox, out intersection);
+
+            if (pego) { 
+                
+                reciboDaño = true;
+                
+            }
+
+
+        }
+
+
+
         public void inicializarEstado() {
-            reviboDaño = false;            
+            reciboDaño = false;            
         }
 
 

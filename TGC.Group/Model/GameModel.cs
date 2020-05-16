@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using TGC.Core.Camara;
+using TGC.Core.Collision;
 using TGC.Core.Direct3D;
 using TGC.Core.Example;
 using TGC.Core.Geometry;
@@ -45,6 +46,8 @@ namespace TGC.Group.Model
         private TgcMesh DeathStar5;
 
         private terrenoOffline terreno;
+        private terrenoDinamico objetosRompibles;
+
         ObjetoRompible unaCaja;
 
         private TGCVector3 posicionCamara;
@@ -56,119 +59,6 @@ namespace TGC.Group.Model
         CamaraTPEstatica Camara0;
         CamaraTPMovimiento Camara1;
         float rotarEnY;
-
-
-
-        
-
-        private TgcPlane[] completarLineaDeSuelosX(int cantidadDeSuelo, string DireccionTextura, float X, float Y, float Z, float escala)
-        {
-
-
-            TgcPlane[] suelos = new TgcPlane[cantidadDeSuelo];
-
-
-            for (int i = 0; i < cantidadDeSuelo; i++)
-            {
-
-
-                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
-                //suelos[i].AutoAdjustUv = false;
-                //suelos[i].updateValues();
-
-                X += escala;
-
-
-            }
-
-            return suelos;
-
-        }
-
-        private TgcPlane[] completarLineaDeSuelosZ(int cantidadDeSuelo, string DireccionTextura, float X, float Y, float Z, float escala)
-        {
-
-
-            TgcPlane[] suelos = new TgcPlane[cantidadDeSuelo];
-
-
-            for (int i = 0; i < cantidadDeSuelo; i++)
-            {
-
-
-                suelos[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
-
-                Z += escala;
-
-
-            }
-
-            return suelos;
-
-        }
-
-        private TgcPlane[] completarParedZ(int cantidadDeParedes, string DireccionTextura, float X, float Y, float Z, float escala)
-        {
-
-
-            TgcPlane[] Paredes = new TgcPlane[cantidadDeParedes];
-
-
-            for (int i = 0; i < cantidadDeParedes; i++)
-            {
-
-
-                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.XYplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
-
-                X += escala;
-
-
-            }
-
-            return Paredes;
-
-        }
-
-
-        private TgcPlane[] completarParedX(int cantidadDeParedes, string DireccionTextura, float X, float Y, float Z, float escala)
-        {
-
-
-            TgcPlane[] Paredes = new TgcPlane[cantidadDeParedes];
-
-
-            for (int i = 0; i < cantidadDeParedes; i++)
-            {
-
-
-                Paredes[i] = new TgcPlane(new TGCVector3(X, Y, Z), new TGCVector3(escala, escala, escala), TgcPlane.Orientations.YZplane, TgcTexture.createTexture(DireccionTextura), 1f, 1f);
-
-                Z += escala;
-
-
-            }
-
-            return Paredes;
-
-        }
-
-
-
-        private void mostrarArrayPlano(TgcPlane[] planos)
-        {
-
-            foreach (TgcPlane plano in planos)
-            {
-
-
-                plano.Render();
-
-
-            }
-
-        }
-
-
 
 
         public override void Init()
@@ -211,11 +101,12 @@ namespace TGC.Group.Model
 
             //CreamosObjetoRompible
             unaCaja = new ObjetoRompible();
+            objetosRompibles = new terrenoDinamico();
 
 
-            
 
-            
+
+
             // Hay que arreglar esta parte.
             //Suelen utilizarse objetos que manejan el comportamiento de la camara.
             //Lo que en realidad necesitamos gráficamente es una matriz de View.
@@ -267,18 +158,21 @@ namespace TGC.Group.Model
 
             unJugador.inicializarMovimiento();
             unaCaja.inicializarEstado();
+            objetosRompibles.inicializarEstadoInternoDeLosObjetos();
+
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
             //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
 
-            
+
             if (Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
                 //jugador.Position+= new TGCVector3(0.1f, 0, 0);
                 //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
-                unJugador.disparar();
-                unaCaja.esDañado();
+                TgcRay rayo1 = unJugador.disparar();
+                objetosRompibles.dañarBounding(rayo1);
+                unaCaja.esDañadoBounding(rayo1);
             }
 
             // Mover Nave
@@ -375,6 +269,7 @@ namespace TGC.Group.Model
             Camara1.rotateY(((float)sqrt * 9f * unJugador.rotary(ElapsedTime)));
             
             unaCaja.perdervida();
+            objetosRompibles.perderVida();
 
             PostUpdate();
         }
@@ -393,6 +288,7 @@ namespace TGC.Group.Model
             DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
             terreno.mostrarTerreno();
+            objetosRompibles.mostrarObjetosRompibles();
         
             skyBox.Render();
             
