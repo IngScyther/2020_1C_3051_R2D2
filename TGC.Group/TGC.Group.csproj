@@ -114,6 +114,7 @@
     <Compile Include="Model\meshTorreta.cs" />
     <Compile Include="Model\meshX.cs" />
     <Compile Include="Model\NaveJugador.cs" />
+    <Compile Include="Model\ObjetoRompible.cs" />
     <Compile Include="Model\SkyBox.cs" />
     <Compile Include="Model\terrenoOffline.cs" />
     <Compile Include="Program.cs" />

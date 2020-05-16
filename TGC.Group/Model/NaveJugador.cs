@@ -61,7 +61,7 @@ namespace TGC.Group.Model
             directionArrow.BodyColor = Color.Red;
             directionArrow.HeadColor = Color.Red;
             directionArrow.Thickness = 0.1f;
-            directionArrow.HeadSize = new TGCVector2(1, 2);
+            directionArrow.HeadSize = new TGCVector2(0.1f, 0.1f);
 
             angulox = 0;
             anguloy = 0;
