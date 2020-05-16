@@ -35,24 +35,9 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
         }
 
-        //Definimos estructuras
-        //private TgcPlane suelo;
-
-        //private TgcPlane[] suelos1;
-        //private TgcPlane[] paredes11;
-        //private TgcPlane[] paredes12;
-        //private TgcPlane[] suelos2;
-        //private TgcPlane[] paredes21;
-       // private TgcPlane[] paredes22;
-        //private TgcPlane[] suelos3;
-        //private TgcPlane[] paredes31;
-        //private TgcPlane[] paredes32;
-       // private TgcPlane pared;
-       // private TgcPlane pared2;
-
-        
-
+        // Jugador Arreglar Esto sacar todos estos TgcMesh
         private TgcMesh jugador;
+
         private TgcMesh DeathStar;
         private TgcMesh DeathStar2;
         private TgcMesh DeathStar3;
@@ -60,17 +45,18 @@ namespace TGC.Group.Model
         private TgcMesh DeathStar5;
 
         private terrenoOffline terreno;
+        ObjetoRompible unaCaja;
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
 
         TgcScene Scene;
         NaveJugador unJugador;
-
         TgcSkyBox skyBox;
         CamaraTPEstatica Camara0;
         CamaraTPMovimiento Camara1;
         float rotarEnY;
+
 
 
         
@@ -223,45 +209,11 @@ namespace TGC.Group.Model
             //Creamos terreno
             terreno = new terrenoOffline(MediaDir);
 
-            // Hay que arreglar esta parte terreno offline
-            //Textura de la carperta Media. Game.Default es un archivo de configuracion (Game.settings) util para poner cosas.
-            //Pueden abrir el Game.settings que se ubica dentro de nuestro proyecto para configurar.
-            //Esta textura despues la cambiamos.
-            //var pathTexturaCaja = MediaDir + Game.Default.TexturaCaja;
-            //var texturaPisoDeMetal = MediaDir + "//Metal-floor_.png";
-            //var pathTexturaCaja3 = MediaDir + "//Piso2.jpg";
-            //var texturaEstrella = MediaDir + "//Color_002.jpg";
+            //CreamosObjetoRompible
+            unaCaja = new ObjetoRompible();
 
-            //var pathTexturaCaja3 = MediaDir + "//stones.bpn";
-            // var pathTexturaCaja3 = MediaDir + Game.Default.TexturaCaja;
 
-            //Cargamos una textura, tener en cuenta que cargar una textura significa crear una copia en memoria.
-            //Es importante cargar texturas en Init, si se hace en el render loop podemos tener grandes problemas si instanciamos muchas.
-            //var pisoTexture = TgcTexture.createTexture(pathTexturaCaja);
-
-            //Definimos caracteristicas del suelo
-            //suelo = new TgcPlane(new TGCVector3(0, 0, 0), new TGCVector3(50, 50, 50), TgcPlane.Orientations.XZplane, pisoTexture, 10f, 10f);
-
-            //int cantidadEspacio1 = 4;
-            //int escala = 10;
-            // Pasillo 1 (0,0,0) -> (6x10,0,0)
-
-            //suelos1 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
-            //paredes11 = completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
-            //paredes12 = completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
-
-            //Pasillo 2 (6x10,0,0) -> (6x10,0,6x10)
-
-            //suelos2 = completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
-            //paredes21 = completarParedX(6, texturaEstrella, (1 + 6) * escala, 0, 0, escala);
-            //paredes22 = completarParedX(6, texturaEstrella, (0 + 6) * escala, 0, 1 * escala, escala);
-
-            //Pasillo 3 (6x10,0,6x10) -> (6x10,0,12x10)
-            //int posz = 8* escala;
-
-            //suelos3 = completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
-            //paredes31 = completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
-            //paredes32 = completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
+            
 
             
             // Hay que arreglar esta parte.
@@ -314,6 +266,7 @@ namespace TGC.Group.Model
 
 
             unJugador.inicializarMovimiento();
+            unaCaja.inicializarEstado();
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
             //jugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(jugador.Rotation.Y, jugador.Rotation.X, jugador.Rotation.Z) * TGCMatrix.Translation(jugador.Position);
@@ -325,8 +278,9 @@ namespace TGC.Group.Model
                 //jugador.Position+= new TGCVector3(0.1f, 0, 0);
                 //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
                 unJugador.disparar();
-
+                unaCaja.esDañado();
             }
+
             // Mover Nave
             if (Input.keyDown(Key.W))
             {
@@ -414,18 +368,13 @@ namespace TGC.Group.Model
                 //Camara1.rotateY(rotarEnY);
             }
 
-            //Camara1.rotateY(10 * ElapsedTime);
-            //Camara1.rotateY(rotarEnY * ElapsedTime);
-
-
-            //rotarEnY += a*100;
-            //rotarEnY += 0.01f;
-
+            //Arreglar
             float X = (Camera.Position.X - unJugador.Position().X);
             float Z = (Camera.Position.Z - unJugador.Position().Z);
             double sqrt = Math.Sqrt(X * X + Z * Z);
             Camara1.rotateY(((float)sqrt * 9f * unJugador.rotary(ElapsedTime)));
-
+            
+            unaCaja.perdervida();
 
             PostUpdate();
         }
@@ -444,28 +393,13 @@ namespace TGC.Group.Model
             DrawText.drawText("Botones W A S D CTRL SPACE Y las Fechas.\n Al actualizar el Core dejo de funcionar: " + TGCVector3.PrintTGCVector3(Camera.Position), 0, 35, Color.LightSalmon);
 
             terreno.mostrarTerreno();
-            //mostrarArrayPlano(suelos1);
-            //mostrarArrayPlano(suelos2);
-            //mostrarArrayPlano(suelos3);
-            //pared.Render();
-            //pared2.Render();
-            //mostrarArrayPlano(paredes11);
-            //mostrarArrayPlano(paredes12);
-            //mostrarArrayPlano(paredes21);
-            //mostrarArrayPlano(paredes22);
-            //mostrarArrayPlano(paredes31);
-            //mostrarArrayPlano(paredes32);
+        
             skyBox.Render();
-            //jugador.Render();
+            
             unJugador.Render();
             DeathStar.Render();
             DeathStar2.Render();
-            //DeathStar3.Render();
-            //DeathStar4.Render();
-            //DeathStar5.Render();
-
-
-
+            unaCaja.Render();
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();

@@ -44,9 +44,13 @@ namespace TGC.Group.Model
 
         }
 
-        public void inicializarEstado() {
-            reviboDaño = false;
+        public void esDañado() {
             
+            reviboDaño = true;
+        }
+
+        public void inicializarEstado() {
+            reviboDaño = false;            
         }
 
 
