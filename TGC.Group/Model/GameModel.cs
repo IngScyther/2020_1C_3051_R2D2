@@ -104,9 +104,7 @@ namespace TGC.Group.Model
             objetosRompibles = new terrenoDinamico();
 
 
-
-
-
+            // Camaras falta arreglar
             // Hay que arreglar esta parte.
             //Suelen utilizarse objetos que manejan el comportamiento de la camara.
             //Lo que en realidad necesitamos gráficamente es una matriz de View.
