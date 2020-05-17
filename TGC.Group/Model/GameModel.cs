@@ -173,6 +173,20 @@ namespace TGC.Group.Model
                 unaCaja.esDañadoBounding(rayo1);
             }
 
+            /*if (Input.XposRelative > 0)
+            {
+                Camara1.rotateY(-10000 * ElapsedTime);
+                Camara1.UpdateCamera(ElapsedTime);
+            }
+
+            if (Input.XposRelative < 0)
+            {
+                Camara1.rotateY(+10000 * ElapsedTime);
+                Camara1.UpdateCamera(ElapsedTime);
+            } */
+
+
+
             // Mover Nave
             if (Input.keyDown(Key.W))
             {
@@ -235,7 +249,7 @@ namespace TGC.Group.Model
             // RotarNave
             if (Input.keyDown(Key.UpArrow))
             {
-                unJugador.rotarArriba();
+                //unJugador.rotarArriba();
                 //Camara1.rotateY(100 * ElapsedTime);
             }
 
@@ -243,7 +257,7 @@ namespace TGC.Group.Model
 
             if (Input.keyDown(Key.DownArrow))
             {
-                unJugador.rotarAbajo();
+                //unJugador.rotarAbajo();
             }
 
             if (Input.keyDown(Key.RightArrow))
@@ -260,11 +274,11 @@ namespace TGC.Group.Model
                 //Camara1.rotateY(rotarEnY);
             }
 
-            //Arreglar
+            //Arreglar !! No me doy cuenta como sincronizar el giro de la camara.
             float X = (Camera.Position.X - unJugador.Position().X);
             float Z = (Camera.Position.Z - unJugador.Position().Z);
             double sqrt = Math.Sqrt(X * X + Z * Z);
-            Camara1.rotateY(((float)sqrt * 9f * unJugador.rotary(ElapsedTime)));
+            Camara1.rotateY(((float)sqrt * 10f * unJugador.rotary(ElapsedTime)));
             
             unaCaja.perdervida();
             objetosRompibles.perderVida();

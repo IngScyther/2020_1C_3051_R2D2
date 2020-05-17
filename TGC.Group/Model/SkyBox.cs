@@ -40,8 +40,8 @@ namespace TGC.Group.Model
             skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Right, MediaDir + "Arriba.jpg"); //Despues vemos bien las imagenes
 
             //Hay veces es necesario invertir las texturas Front y Back si se pasa de un sistema RightHanded a uno LeftHanded
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Front, MediaDir + "Color A05.png"); //Despues vemos bien las imagenes
-            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Back, MediaDir + "Color A05.png"); //Despues vemos bien las imagenes
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Front, MediaDir + "Arriba.jpg"); //Despues vemos bien las imagenes
+            skyBox.setFaceTexture(TgcSkyBox.SkyFaces.Back, MediaDir + "Arriba.jpg"); //Despues vemos bien las imagenes
             skyBox.SkyEpsilon = 25f;
             //Inicializa todos los valores para crear el SkyBox
             skyBox.Init();

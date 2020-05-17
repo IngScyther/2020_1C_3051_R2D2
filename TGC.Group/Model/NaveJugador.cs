@@ -285,15 +285,15 @@ namespace TGC.Group.Model
                 //Camera.rotateY(rotAngle* ElapsedTime);
                 float a = -anguloy * ElapsedTime;
 
-                if (a >= 360) {
+                /*if (a >= 360) {
 
                    a = a%360;
                     a *= 360;
-                }
+                }*/
 
                 rotacionTotalY += rotAngle;
 
-                return rotAngle;
+                return a;
 
             }
             else {
