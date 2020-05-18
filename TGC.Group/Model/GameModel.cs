@@ -44,6 +44,7 @@ namespace TGC.Group.Model
         private TgcMesh DeathStar3;
         private TgcMesh DeathStar4;
         private TgcMesh DeathStar5;
+        private TorretaAsesina torreta;
 
         private terrenoOffline terreno;
         private terrenoDinamico objetosRompibles;
@@ -100,8 +101,10 @@ namespace TGC.Group.Model
             terreno = new terrenoOffline(MediaDir);
 
             //CreamosObjetoRompible
-            unaCaja = new ObjetoRompible();
+            //unaCaja = new ObjetoRompible();
             objetosRompibles = new terrenoDinamico();
+
+            torreta = new TorretaAsesina(MediaDir,0, 0, 0, 0.1f);
 
 
             // Camaras falta arreglar
@@ -153,9 +156,9 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-
+            torreta.disparar(ElapsedTime);
             unJugador.inicializarMovimiento();
-            unaCaja.inicializarEstado();
+            //unaCaja.inicializarEstado();
             objetosRompibles.inicializarEstadoInternoDeLosObjetos();
 
             //rotarEnY = 0;
@@ -170,7 +173,7 @@ namespace TGC.Group.Model
                 //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
                 TgcRay rayo1 = unJugador.disparar();
                 objetosRompibles.dañarBounding(rayo1);
-                unaCaja.esDañadoBounding(rayo1);
+                //unaCaja.esDañadoBounding(rayo1);
             }
 
             /*if (Input.XposRelative > 0)
@@ -280,7 +283,7 @@ namespace TGC.Group.Model
             double sqrt = Math.Sqrt(X * X + Z * Z);
             Camara1.rotateY(((float)sqrt * 10f * unJugador.rotary(ElapsedTime)));
             
-            unaCaja.perdervida();
+            //unaCaja.perdervida();
             objetosRompibles.perderVida();
 
             PostUpdate();
@@ -307,7 +310,8 @@ namespace TGC.Group.Model
             unJugador.Render();
             DeathStar.Render();
             DeathStar2.Render();
-            unaCaja.Render();
+            torreta.Render();
+            //unaCaja.Render();
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();

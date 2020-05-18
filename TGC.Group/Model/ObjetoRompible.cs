@@ -18,14 +18,15 @@ namespace TGC.Group.Model
         public float vida; //ValorPositivo, sino muere.
         public TgcMesh miMesh;
         public TGCBox Box; //ProbarAIM
+        public TipoObjeto objeto;
 
-        public ObjetoRompible() {
+        /*public ObjetoRompible() {
 
             vivo = true;
             vida = 100;
             Box = TGCBox.fromSize(new TGCVector3(40, 10, -10), new TGCVector3(15, 15, 15), Color.Violet);
 
-        }
+        }*/
 
         public ObjetoRompible(float X, float Y, float Z, float Escala)
         {
