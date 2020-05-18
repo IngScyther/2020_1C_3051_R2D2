@@ -31,18 +31,63 @@ namespace TGC.Group.Model
             int cantidadEspacio1 = 4;
             int escala = 10;
             // Pasillo 1 (0,0,0) -> (6x10,0,0)
-            this.completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
-            this.completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
-            this.completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
+            //this.completarLineaDeSuelosX(6, texturaPisoDeMetal, 0, 0, 0, escala);
+           // this.completarParedZ((6 + 1), texturaEstrella, 0, 0, 0, escala);
+            //this.completarParedZ(6, texturaEstrella, 0, 0, 1 * escala, escala);
             //Pasillo 2 (6x10,0,0) -> (6x10,0,6x10)
-            this.completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
-            this.completarParedX(6, texturaEstrella, (1 + 6) * escala, 0, 0, escala);
-            this.completarParedX(6, texturaEstrella, (0 + 6) * escala, 0, 1 * escala, escala);
+            //this.completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
+            //this.completarParedX(6, texturaEstrella, (1 + 6) * escala, 0, 0, escala);
+            //this.completarParedX(6, texturaEstrella, (0 + 6) * escala, 0, 1 * escala, escala);
             //Pasillo 3 (6x10,0,6x10) -> (6x10,0,12x10)
             //int posz = 8* escala;
-            this.completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
-            this.completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
-            this.completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
+            //this.completarLineaDeSuelosX(6, texturaPisoDeMetal, 6 * escala, 0, 6 * escala, escala);
+            //this.completarParedZ(5, texturaEstrella, (1 + 6) * escala, 0, 6 * escala, escala);
+           // this.completarParedZ((1 + 5), texturaEstrella, (0 + 6) * escala, 0, (1 + 6) * escala, escala);
+            //Pared A
+            //      A1
+            //this.completarParedX(5, texturaEstrella, (0) * escala, 0, (1) * escala, escala);
+            //      A1
+            //this.completarParedX(5, texturaEstrella, (0) * escala, 0, (-5) * escala, escala);
+            //      A1
+            //this.completarParedX(5, texturaEstrella, (5) * escala, 0, (1) * escala, escala);
+            //      A1
+            //this.completarParedX(5, texturaEstrella, (5) * escala, 0, (-5) * escala, escala);
+
+
+            //Pared B
+            //      B1
+            //this.completarParedZ((5), texturaEstrella, 0, 0, (5+1) * escala, escala);
+            //      B2
+            //this.completarParedZ((5), texturaEstrella, 0, 0, (0) * escala, escala);
+            //      B3
+            //this.completarParedZ((5), texturaEstrella, 0, 0, (1) * escala, escala);
+            //      B4
+            //this.completarParedZ((5), texturaEstrella, 0, 0, (-5) * escala, escala);
+
+            // Piso 1
+            //this.completarLineaDeSuelosX(5, texturaPisoDeMetal, 0, 0, 0, escala);
+            // Piso 2
+            //this.completarLineaDeSuelosZ(6, texturaPisoDeMetal, 6 * escala, 0, 0, escala);
+
+            
+            this.completarCuadrantePared(5, texturaEstrella, 0, 0, 1, escala, 5);
+            this.completarCuadrantePared(5, texturaEstrella, 0, 0, -5, escala, 5);
+
+            this.completarCuadrantePared(5, texturaEstrella, 6, 0, 1, escala, 5);
+            this.completarCuadrantePared(5, texturaEstrella, 6, 0, -5, escala, 5);
+
+            this.completarCuadrantePared(5, texturaEstrella, 12, 0, 1, escala, 5);
+            this.completarCuadrantePared(5, texturaEstrella, 12, 0, -5, escala, 5);
+
+            this.completarCuadrantePared(5, texturaEstrella, 0, 0, 7, escala, 5);
+            this.completarCuadrantePared(5, texturaEstrella, 0, 0, -11, escala, 5);
+
+            this.completarCuadrantePared(5, texturaEstrella, 6, 0, 7, escala, 5);
+            this.completarCuadrantePared(5, texturaEstrella, 6, 0, -11, escala, 5);
+
+            this.completarCuadrantePiso(5, texturaEstrella, 0, 10, 1, escala, 5);
+
+
 
         }
 
@@ -101,8 +146,6 @@ namespace TGC.Group.Model
             }
         }
 
-
-
         public void mostrarTerreno(/*TgcPlane[] planos*/)
         {
             foreach (TgcPlane plano in terreno)
@@ -110,5 +153,31 @@ namespace TGC.Group.Model
                 plano.Render();
             }
         }
+
+        public void completarCuadrantePared(int cantidadDeParedes, string DireccionTextura, float X, float Y, float Z, float escala, int tamaño) {
+
+            this.completarParedX(cantidadDeParedes, DireccionTextura, (X) * escala, (Y) * escala, (Z) * escala, escala);
+            this.completarParedZ(cantidadDeParedes, DireccionTextura, (X) * escala, (Y) * escala, (Z) * escala, escala);
+            this.completarParedX(cantidadDeParedes, DireccionTextura, (X+ tamaño) * escala, (Y) * escala, (Z) * escala, escala);
+            this.completarParedZ(cantidadDeParedes, DireccionTextura, (X) * escala, (Y) * escala, (Z + tamaño) * escala, escala);
+
+        }
+
+        public void completarCuadrantePiso(int cantidadDeFilasDePiso, string DireccionTextura, float X, float Y, float Z, float escala, int tamaño)
+        {
+            int contador;
+            for (contador=0;contador< cantidadDeFilasDePiso; contador++) {
+                int a = contador * tamaño;
+
+
+                this.completarLineaDeSuelosX(cantidadDeFilasDePiso, DireccionTextura, X, Y, Z+ a, escala);    
+
+
+            }
+        }
+
+
+
+
     }
 }
