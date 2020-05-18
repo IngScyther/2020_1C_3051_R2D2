@@ -40,13 +40,13 @@ namespace TGC.Group.Model
 
             if (reciboDaño == true) 
             {
-                Box.Color = Color.Red;
+                Box.Color = Color.BurlyWood;
                 Box.updateValues();
 
             }
             else {
 
-                Box.Color = Color.Violet;
+                Box.Color = Color.Cyan;
                 Box.updateValues();
 
             }
