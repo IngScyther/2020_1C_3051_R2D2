@@ -32,7 +32,7 @@ namespace TGC.Group.Model
 
             vivo = true;
             vida = 100;
-            Box = TGCBox.fromSize(new TGCVector3(X, Y, -Z), new TGCVector3(Escala, Escala, Escala), Color.Violet);
+            Box = TGCBox.fromSize(new TGCVector3(X, Y, Z), new TGCVector3(Escala, Escala, Escala), Color.Violet);
 
         }
 

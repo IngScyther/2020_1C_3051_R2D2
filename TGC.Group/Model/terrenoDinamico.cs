@@ -18,16 +18,43 @@ namespace TGC.Group.Model
 
             terrenoRompible = new List<ObjetoRompible>();
 
+            ObjetoRompible objeto;
             //Bateria 1
-            ObjetoRompible objeto = new ObjetoRompible(30,10,-20,10);
+            objeto = new ObjetoRompible(20,10,30,10);
             terrenoRompible.Add(objeto);
             //Bateria 2
-            objeto = new ObjetoRompible(40, 10, -20, 10);
+            objeto = new ObjetoRompible(20, 10, 110, 10);
             terrenoRompible.Add(objeto);
             //Bateria 3
-            objeto = new ObjetoRompible(60, 10, 20, 10);
+            objeto = new ObjetoRompible(20, 10, -50, 10);
             terrenoRompible.Add(objeto);
-
+            //Bateria 4
+            objeto = new ObjetoRompible(20, 10, -130, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 5
+            objeto = new ObjetoRompible(100, 10, 30, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 6
+            objeto = new ObjetoRompible(100, 10, 110, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 7
+            objeto = new ObjetoRompible(100, 10, -50, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 8
+            objeto = new ObjetoRompible(100, 10, -130, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 9
+            objeto = new ObjetoRompible(180, 10, 30, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 10
+            objeto = new ObjetoRompible(180, 10, 110, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 11
+            objeto = new ObjetoRompible(180, 10, -50, 10);
+            terrenoRompible.Add(objeto);
+            //Bateria 12
+            objeto = new ObjetoRompible(180, 10, -130, 10);
+            terrenoRompible.Add(objeto);
         }
 
 
