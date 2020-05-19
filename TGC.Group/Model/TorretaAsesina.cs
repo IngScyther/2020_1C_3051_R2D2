@@ -53,7 +53,8 @@ namespace TGC.Group.Model
                 atacar = false;
                 tiempoDeRescarga -= ElapsedTime;
                 tiempoDeDisparo = 0.5f;
-                rotacionTotalY += 1;
+                var random = new Random();
+                rotacionTotalY += 1*(float)random.Next(1,2);
 
             }
             else if(tiempoDeRescarga <= 0) {
@@ -81,8 +82,6 @@ namespace TGC.Group.Model
                 else {
                     atacar = false;
                     tiempoDeRescarga = 1;
-
-
                 }
 
 

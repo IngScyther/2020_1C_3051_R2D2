@@ -119,6 +119,7 @@
     <Compile Include="Model\SkyBox.cs" />
     <Compile Include="Model\terrenoDinamico.cs" />
     <Compile Include="Model\terrenoOffline.cs" />
+    <Compile Include="Model\terrenoTorreta.cs" />
     <Compile Include="Model\TipoObjeto.cs" />
     <Compile Include="Model\TorretaAsesina.cs" />
     <Compile Include="Program.cs" />

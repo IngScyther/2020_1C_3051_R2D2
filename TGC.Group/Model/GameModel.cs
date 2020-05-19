@@ -44,7 +44,7 @@ namespace TGC.Group.Model
         private TgcMesh DeathStar3;
         private TgcMesh DeathStar4;
         private TgcMesh DeathStar5;
-        private TorretaAsesina torreta;
+        //private TorretaAsesina torreta;
 
         private terrenoOffline terreno;
         private terrenoDinamico objetosRompibles;
@@ -53,6 +53,8 @@ namespace TGC.Group.Model
 
         private TGCVector3 posicionCamara;
         private TGCVector3 objetivo;
+
+        terrenoTorreta torretasDefensivas;
 
         TgcScene Scene;
         NaveJugador unJugador;
@@ -104,7 +106,8 @@ namespace TGC.Group.Model
             //unaCaja = new ObjetoRompible();
             objetosRompibles = new terrenoDinamico();
 
-            torreta = new TorretaAsesina(MediaDir,0, 0, 0, 0.1f);
+            //torreta = new TorretaAsesina(MediaDir,0, 0, 0, 0.1f);
+            torretasDefensivas = new terrenoTorreta(MediaDir);
 
 
             // Camaras falta arreglar
@@ -156,10 +159,11 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-            torreta.disparar(ElapsedTime);
+            //torreta.disparar(ElapsedTime);
             unJugador.inicializarMovimiento();
             //unaCaja.inicializarEstado();
             objetosRompibles.inicializarEstadoInternoDeLosObjetos();
+            torretasDefensivas.disparar(ElapsedTime);
 
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
@@ -309,8 +313,9 @@ namespace TGC.Group.Model
             
             unJugador.Render();
             DeathStar.Render();
-            DeathStar2.Render();
-            torreta.Render();
+            //DeathStar2.Render();
+            //torreta.Render();
+            torretasDefensivas.Render();
             //unaCaja.Render();
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
