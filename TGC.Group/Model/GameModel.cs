@@ -180,6 +180,16 @@ namespace TGC.Group.Model
                 //unaCaja.esDañadoBounding(rayo1);
             }
 
+            if (Input.keyDown(Key.RightControl))
+            {
+                //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
+                //jugador.Position+= new TGCVector3(0.1f, 0, 0);
+                //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
+                TgcRay rayo1 = unJugador.disparar();
+                objetosRompibles.dañarBounding(rayo1);
+                //unaCaja.esDañadoBounding(rayo1);
+            }
+
             /*if (Input.XposRelative > 0)
             {
                 Camara1.rotateY(-10000 * ElapsedTime);
@@ -285,7 +295,7 @@ namespace TGC.Group.Model
             float X = (Camera.Position.X - unJugador.Position().X);
             float Z = (Camera.Position.Z - unJugador.Position().Z);
             double sqrt = Math.Sqrt(X * X + Z * Z);
-            Camara1.rotateY(((float)sqrt * 10f * unJugador.rotary(ElapsedTime)));
+            Camara1.rotateY(((float)sqrt * 1f * unJugador.rotary(ElapsedTime)));
             
             //unaCaja.perdervida();
             objetosRompibles.perderVida();
