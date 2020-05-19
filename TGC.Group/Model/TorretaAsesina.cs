@@ -22,6 +22,8 @@ namespace TGC.Group.Model
         float tiempoDeDisparo;
         float tiempoDeRescarga;
         float rotacionTotalY;
+        float rotacionTotalXZ;
+        Random random;
 
         public TorretaAsesina(string MediaDir,float X,float Y,float Z,float escala) {
 
@@ -39,6 +41,7 @@ namespace TGC.Group.Model
             directionArrow.HeadColor = Color.Red;
             directionArrow.Thickness = 0.1f;
             directionArrow.HeadSize = new TGCVector2(0.1f, 0.1f);
+            random = new Random();
 
         }
         
@@ -53,8 +56,8 @@ namespace TGC.Group.Model
                 atacar = false;
                 tiempoDeRescarga -= ElapsedTime;
                 tiempoDeDisparo = 0.5f;
-                var random = new Random();
-                rotacionTotalY += 1*(float)random.Next(1,2);
+                rotacionTotalY+= (float)random.Next(0,10)*0.1f;
+                rotacionTotalXZ= (float)random.Next(3, 10)*0.1f;
 
             }
             else if(tiempoDeRescarga <= 0) {
@@ -63,17 +66,19 @@ namespace TGC.Group.Model
                 {
                     atacar = true;
                     tiempoDeDisparo -= ElapsedTime;
-                    var random = new Random();
+                    
                     
                     // 7) Tenemos un objeto que rota un cierto angulo en Y (ej: un auto) y queremos saber los componentes X,Z para donde tiene que avanzar al moverse
                     //var rotacionY = FastMath.PI_HALF;
-                    var componenteX = FastMath.Sin(rotacionTotalY);
-                    var componenteZ = FastMath.Cos(rotacionTotalY);
+                    var componenteX = FastMath.Sin(rotacionTotalY)* FastMath.Sin(rotacionTotalXZ);
+                    var componenteZ = FastMath.Cos(rotacionTotalY)* FastMath.Sin(rotacionTotalXZ);
+                    var componeteY = FastMath.Cos(rotacionTotalXZ);
+                    if (componeteY < 0)  componeteY= componeteY * -1 ;
                     // float velocidadMovimiento = 100; //Ojo que este valor deberia siempre multiplicarse por el elapsedTime
                     //var movimientoAdelante = new TGCVector3(componenteX * velocidadMovimiento, 0, componenteZ * velocidadMovimiento);
                     atacar = true;
                     directionArrow.PStart = torreta.Position;
-                    directionArrow.PEnd = torreta.Position + new TGCVector3(componenteX, 0, componenteZ) * 100;
+                    directionArrow.PEnd = torreta.Position + new TGCVector3(componenteX, componeteY, componenteZ) * 100;
                     directionArrow.updateValues();
                     //rayo1 = new TgcRay(meshjugador.Position, new TGCVector3(componenteX, 0, componenteZ) * 100);
                     //return rayo1;
@@ -81,7 +86,9 @@ namespace TGC.Group.Model
                 }
                 else {
                     atacar = false;
-                    tiempoDeRescarga = 1;
+                    //var random = new Random();
+                    
+                    tiempoDeRescarga = 1 * (float)random.Next(1, 7);
                 }
 
 
