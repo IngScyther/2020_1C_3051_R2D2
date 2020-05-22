@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,122 +14,63 @@ namespace TGC.Group.Model
         public terrenoTorreta(string MediaDir) {
 
             terrenoRompible = new List<TorretaAsesina>();
-            TorretaAsesina torreta;
+            //TorretaAsesina torreta;
 
             //A
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
+
+            posicionarCuadrante(MediaDir, 10, 10, 15, 0.1f);
             //B
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10, 10, 15+80, 0.1f);
+
             //C
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10, 10, 15-80, 0.1f);
+
             //D
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 15 - 80*2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 15 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10, 10, 15 - 80 * 2, 0.1f);
+
 
             //E
-            torreta = new TorretaAsesina(MediaDir, 10+80, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80, 10, 15, 0.1f);
+
             //F
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80, 10, 15 + 80, 0.1f);
+
             //G
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80, 10, 15 - 80, 0.1f);
+
             //H
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 15 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 15 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80, 10, 15 - 80*2, 0.1f);
+
 
             //I
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 15, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 45, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80*2, 10, 15, 0.1f);
+
             //J
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 15 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 45 + 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80*2, 10, 15 + 80, 0.1f);
+
             //K
-            torreta = new TorretaAsesina(MediaDir, 10 + 80, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 15 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 45 - 80, 0.1f);
-            terrenoRompible.Add(torreta);
+            posicionarCuadrante(MediaDir, 10 + 80*2, 10, 15 - 80, 0.1f);
+
             //L
-            torreta = new TorretaAsesina(MediaDir, 10 + 80*2, 10, 15 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 10 + 80 * 2, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 15 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-            torreta = new TorretaAsesina(MediaDir, 45 + 80 * 2, 10, 45 - 80 * 2, 0.1f);
-            terrenoRompible.Add(torreta);
-
-
+            posicionarCuadrante(MediaDir, 10 + 80*2, 10, 15 - 80*2, 0.1f);
 
         }
+
+        private void posicionarCuadrante(string MediaDir, float x,float y,float z, float escala) {
+
+            TorretaAsesina torreta;
+            //torreta = new TorretaAsesina(MediaDir, 10, 10, 15, 0.1f);
+            torreta = new TorretaAsesina(MediaDir, x, y, z, escala);
+            terrenoRompible.Add(torreta);
+            torreta = new TorretaAsesina(MediaDir, x, y, z + 30, escala);
+            terrenoRompible.Add(torreta);
+            torreta = new TorretaAsesina(MediaDir, x + 35, y, z, escala);
+            terrenoRompible.Add(torreta);
+            torreta = new TorretaAsesina(MediaDir, x + 35, y, z + 30, escala);
+            terrenoRompible.Add(torreta);
+
+
+        } 
 
         public void disparar(float ElapsedTime) {
 
