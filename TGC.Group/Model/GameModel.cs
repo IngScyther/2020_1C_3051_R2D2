@@ -58,6 +58,7 @@ namespace TGC.Group.Model
 
         TgcScene Scene;
         NaveJugador unJugador, jugador2;
+        NaveCPU naveCpu;
 
         TgcSkyBox skyBox;
         CamaraTPEstatica Camara0;
@@ -81,6 +82,9 @@ namespace TGC.Group.Model
             jugador = unJugador.crearInstanciaNave1(MediaDir);
             jugador2 = new NaveJugador();
             jugador2.crearNaveCompleta(MediaDir);
+            naveCpu = new NaveCPU();
+            naveCpu.CrearInstanciaNave1(MediaDir);
+
 
             //Parte nave1
             meshDeathStar adminave1 = new meshDeathStar();
@@ -178,8 +182,9 @@ namespace TGC.Group.Model
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
                 //jugador.Position+= new TGCVector3(0.1f, 0, 0);
                 //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
-                TgcRay rayo1 = unJugador.disparar();
-                objetosRompibles.dañarBounding(rayo1);
+                TgcRay rayo = unJugador.disparar();
+                objetosRompibles.dañarBounding(rayo);
+                naveCpu.RecibirDaño(rayo);
                 //unaCaja.esDañadoBounding(rayo1);
             }
 
@@ -326,6 +331,7 @@ namespace TGC.Group.Model
             
             unJugador.Render();
             jugador2.RenderTodo();
+            naveCpu.Render();
             DeathStar.Render();
             //DeathStar2.Render();
             //torreta.Render();
