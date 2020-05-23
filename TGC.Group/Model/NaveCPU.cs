@@ -47,7 +47,7 @@ namespace TGC.Group.Model
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
-            ship.Position = new TGCVector3(200, 7, -12);
+            ship.Position = new TGCVector3(140, 43, 202);
             ship.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
             ship.BoundingBox.transform(ship.Transform);
@@ -103,8 +103,29 @@ namespace TGC.Group.Model
 
         }
 
-        public void Avanzar()
+        public void Avanzar(float ElapsedTime)
         {
+            //meshjugador.Position = meshjugador.Position + desplazamiento;
+            /*meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * 
+                TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
+                TGCMatrix.Translation(meshNave.Position);*/
+
+            //meshNave.updateBoundingBox();
+
+            //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
+
+            float moveF = -10 * ElapsedTime;
+            //var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
+            //var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
+
+            meshNave.Position += new TGCVector3(0, 0, moveF);
+
+            meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                  TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
+                                  TGCMatrix.Translation(meshNave.Position);
+           
+            meshNave.BoundingBox.transform(meshNave.Transform);
+
 
         }
 
@@ -123,8 +144,6 @@ namespace TGC.Group.Model
         {
             meshNave.Render();
             meshNave.BoundingBox.Render();
-
-
         }
 
 

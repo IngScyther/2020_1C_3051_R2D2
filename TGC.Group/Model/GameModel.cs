@@ -171,6 +171,7 @@ namespace TGC.Group.Model
             //unaCaja.inicializarEstado();
             objetosRompibles.inicializarEstadoInternoDeLosObjetos();
             torretasDefensivas.disparar(ElapsedTime);
+            naveCpu.Avanzar(ElapsedTime);
 
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
