@@ -25,6 +25,9 @@ namespace TGC.Group.Model
 
         //Variables del jugador
         TgcMesh meshjugador;
+        TgcMesh[] meshCompleto;
+
+
         private const float VELOCIDAD_DESPLAZAMIENTO = 10f;
         private const float VELOCIDAD_ROTACION = 120f;
         TGCVector3 desplazamiento;
@@ -92,6 +95,47 @@ namespace TGC.Group.Model
 
         }
 
+        public void crearNaveCompleta(string MediaDir)
+        {
+            meshCompleto = new TgcMesh[2];
+
+            TgcSceneLoader loader = new TgcSceneLoader();
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            meshCompleto[0] = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[0];
+            meshCompleto[1] = loader.loadSceneFromFile(MediaDir + "XWing\\X-Wing-TgcScene.xml").Meshes[0];
+            // Al XWIN le falta una aleta.
+
+            foreach (TgcMesh mesh in meshCompleto)
+            {
+                mesh.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+                mesh.Technique = "Normal";
+                mesh.Position = new TGCVector3(0, 0, 5);
+                mesh.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
+                mesh.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(mesh.Rotation.Y, mesh.Rotation.X, mesh.Rotation.Z) * TGCMatrix.Translation(mesh.Position);
+            }
+
+
+            // Arma Laser
+
+            //Crear linea para mostrar la direccion del movimiento del personaje
+            directionArrow = new TgcArrow();
+            directionArrow.BodyColor = Color.Red;
+            directionArrow.HeadColor = Color.Red;
+            directionArrow.Thickness = 0.1f;
+            directionArrow.HeadSize = new TGCVector2(0.1f, 0.1f);
+
+            angulox = 0;
+            anguloy = 0;
+            anguloz = 0;
+            rotacionTotalY = FastMath.PI_HALF;
+
+
+        }
+
+
+
+
+
         public void inicializarMovimiento() {
 
             desplazamiento = TGCVector3.Empty;
@@ -101,10 +145,7 @@ namespace TGC.Group.Model
             seMoviox = false;
             seMovioxx = false;
             seRoto = false;
-            atacar = false;
-
-
-        
+            atacar = false;        
         }
 
         public TGCVector3 avanzar()
@@ -259,7 +300,7 @@ namespace TGC.Group.Model
             anguloy = -VELOCIDAD_ROTACION;
         }
 
-        public void rotarz(float ElapsedTime, CamaraTPMovimiento Camera)
+        public void rotarQ(float ElapsedTime, CamaraTPMovimiento Camera)
         {
                 
             if (seRoto) { 
@@ -334,6 +375,16 @@ namespace TGC.Group.Model
 
         }
 
+
+        public void RenderTodo()
+        {
+
+            foreach (TgcMesh mesh in meshCompleto)
+            {
+                mesh.Render();
+            }
+
+        }
 
 
 

@@ -57,7 +57,8 @@ namespace TGC.Group.Model
         terrenoTorreta torretasDefensivas;
 
         TgcScene Scene;
-        NaveJugador unJugador;
+        NaveJugador unJugador, jugador2;
+
         TgcSkyBox skyBox;
         CamaraTPEstatica Camara0;
         CamaraTPMovimiento Camara1;
@@ -78,6 +79,8 @@ namespace TGC.Group.Model
             //Cargar unJugador
             unJugador = new NaveJugador();
             jugador = unJugador.crearInstanciaNave1(MediaDir);
+            jugador2 = new NaveJugador();
+            jugador2.crearNaveCompleta(MediaDir);
 
             //Parte nave1
             meshDeathStar adminave1 = new meshDeathStar();
@@ -322,6 +325,7 @@ namespace TGC.Group.Model
             skyBox.Render();
             
             unJugador.Render();
+            jugador2.RenderTodo();
             DeathStar.Render();
             //DeathStar2.Render();
             //torreta.Render();
