@@ -48,6 +48,7 @@ namespace TGC.Group.Model
 
         private terrenoOffline terreno;
         private terrenoDinamico objetosRompibles;
+        private terrenoNave naves;
 
         ObjetoRompible unaCaja;
 
@@ -108,6 +109,8 @@ namespace TGC.Group.Model
 
             //Creamos terreno
             terreno = new terrenoOffline(MediaDir);
+            naves = new terrenoNave();
+            naves.cargarNaves1(MediaDir);
 
             //CreamosObjetoRompible
             //unaCaja = new ObjetoRompible();
@@ -172,6 +175,7 @@ namespace TGC.Group.Model
             objetosRompibles.inicializarEstadoInternoDeLosObjetos();
             torretasDefensivas.disparar(ElapsedTime);
             naveCpu.Avanzar(ElapsedTime);
+            naves.avanzar(ElapsedTime);
 
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
@@ -334,6 +338,7 @@ namespace TGC.Group.Model
             unJugador.Render();
             jugador2.RenderTodo();
             naveCpu.Render();
+            naves.render();
             DeathStar.Render();
             //DeathStar2.Render();
             //torreta.Render();

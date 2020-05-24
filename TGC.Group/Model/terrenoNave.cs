@@ -18,11 +18,11 @@ namespace TGC.Group.Model
         public void cargarNaves1(string DirMedia) {
 
             //Agregar(string DirMedia,float anguloenrad, float X, float Y, float Z)
-            this.Agregar(DirMedia, 1.57f, 70, 43, 203);
-            this.Agregar(DirMedia, 1.57f, 140, 43, 203);
+            Agregar(DirMedia, 1.57f, 70, 43, 203);
+            Agregar(DirMedia, 1.57f, 140, 43, 203);
             //
-            this.Agregar(DirMedia, 0f, 0, 43, 203);
-            this.Agregar(DirMedia, 0f, 0, 43, 203);
+            Agregar(DirMedia, 0f, 0, 43, 203);
+            Agregar(DirMedia, 0f, 0, 0, 0);
 
 
         }
