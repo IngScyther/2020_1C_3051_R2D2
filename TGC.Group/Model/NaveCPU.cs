@@ -29,6 +29,9 @@ namespace TGC.Group.Model
         bool seMovioxx { set; get; }
         bool seRoto { set; get; }
         bool atacar { set; get; }
+        bool estoyVivo { set; get; }
+        bool tiempoVivo;
+        bool tiempoMuerto;
         float angulox;
         float anguloy;
         float rotacionTotalY;
@@ -54,6 +57,8 @@ namespace TGC.Group.Model
             //ship.UpdateMeshTransform();
             //ship.updateBoundingBox();
             meshNave = ship;
+
+            estoyVivo = true;
 
 
             // Arma Laser
@@ -90,10 +95,14 @@ namespace TGC.Group.Model
             if (pego)
             {
                 meshNave.BoundingBox.setRenderColor(Color.Red);
+                estoyVivo = false;
+
             }
             else {
                 meshNave.BoundingBox.setRenderColor(Color.Yellow);
             }
+
+            
 
 
         }
@@ -114,17 +123,38 @@ namespace TGC.Group.Model
 
             //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
 
-            float moveF = -10 * ElapsedTime;
-            //var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
-            //var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
+            if (estoyVivo == true)
+            {
 
-            meshNave.Position += new TGCVector3(0, 0, moveF);
+                float moveF = -10 * ElapsedTime;
+                //var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
+                //var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
 
-            meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
-                                  TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
-                                  TGCMatrix.Translation(meshNave.Position);
-           
-            meshNave.BoundingBox.transform(meshNave.Transform);
+                meshNave.Position += new TGCVector3(0, 0, moveF);
+
+                meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                      TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
+                                      TGCMatrix.Translation(meshNave.Position);
+
+                meshNave.BoundingBox.transform(meshNave.Transform);
+
+            } else 
+            {
+
+                float moveF = -10 * ElapsedTime;
+                //var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
+                //var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
+
+                meshNave.Position += new TGCVector3(0, moveF, 0);
+
+                meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                      TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
+                                      TGCMatrix.Translation(meshNave.Position);
+
+                meshNave.BoundingBox.transform(meshNave.Transform);
+
+            }
+
 
 
         }

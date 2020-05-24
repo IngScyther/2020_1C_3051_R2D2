@@ -194,8 +194,9 @@ namespace TGC.Group.Model
                 //Camera.SetCamera((Camera.Position + (objetivo - Camera.Position)), Camera.LookAt + (objetivo - Camera.Position));
                 //jugador.Position+= new TGCVector3(0.1f, 0, 0);
                 //Camara1.setTargetOffset(jugador.Position, -10, 5, 0);
-                TgcRay rayo1 = unJugador.disparar();
-                objetosRompibles.dañarBounding(rayo1);
+                TgcRay rayo = unJugador.disparar();
+                objetosRompibles.dañarBounding(rayo);
+                naveCpu.RecibirDaño(rayo);
                 //unaCaja.esDañadoBounding(rayo1);
             }
 
