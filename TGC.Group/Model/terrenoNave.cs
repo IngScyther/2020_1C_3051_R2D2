@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
@@ -28,17 +29,24 @@ namespace TGC.Group.Model
         }
 
 
-        public void avanzar(float ElapsedTime) {
+        public void Avanzar(float ElapsedTime) {
 
             foreach (NaveCPU naveCPU in NavesEnElMundo)
             {
                 naveCPU.Avanzar(ElapsedTime);
             }
-
-
         }
 
-        public void render() {
+        public void RecibirDaño(float ElapsedTime, TgcRay rayo)
+        {
+
+            foreach (NaveCPU naveCPU in NavesEnElMundo)
+            {
+                naveCPU.RecibirDaño(rayo);
+            }
+        }
+
+        public void Render() {
 
             foreach (NaveCPU naveCPU in NavesEnElMundo)
             {

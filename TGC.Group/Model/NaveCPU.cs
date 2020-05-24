@@ -40,6 +40,8 @@ namespace TGC.Group.Model
         float Vuelax;
         private TgcArrow directionArrow;
         public TgcRay rayo1;
+        TGCVector3 posicion;
+        TGCVector3 rotacion;
 
 
         public TgcMesh CrearInstanciaNave1(string MediaDir)
@@ -50,6 +52,9 @@ namespace TGC.Group.Model
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
+            posicion = new TGCVector3(140, 43, 202); ;
+            rotacion = new TGCVector3(0, FastMath.PI / 2, 0);
+
             ship.Position = new TGCVector3(140, 43, 202);
             ship.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
@@ -90,6 +95,8 @@ namespace TGC.Group.Model
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
+            posicion = new TGCVector3(X, Y, Z);
+            rotacion = new TGCVector3(0, anguloRad, 0);
             ship.Position = new TGCVector3(X, Y, Z);
             ship.Rotation = new TGCVector3(0, anguloRad, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
@@ -205,14 +212,14 @@ namespace TGC.Group.Model
 
             if (((tiempoVivo <= 0) && (estoyVivo==true)) || ((tiempoMuerto <= 0) && (estoyVivo == false))) {
 
-                meshNave.Position = new TGCVector3(140, 43, 202);
-                meshNave.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
+                meshNave.Position = posicion;
+                meshNave.Rotation = rotacion;
                 meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) * TGCMatrix.Translation(meshNave.Position);
                 meshNave.BoundingBox.transform(meshNave.Transform);
                 //ship.UpdateMeshTransform();
                 //ship.updateBoundingBox();
                 
-                tiempoVivo = 20f;
+                tiempoVivo = 30f;
                 tiempoMuerto = 3f;
                 estoyVivo = true;
             }

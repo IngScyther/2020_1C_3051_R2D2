@@ -175,7 +175,7 @@ namespace TGC.Group.Model
             objetosRompibles.inicializarEstadoInternoDeLosObjetos();
             torretasDefensivas.disparar(ElapsedTime);
             naveCpu.Avanzar(ElapsedTime);
-            naves.avanzar(ElapsedTime);
+            naves.Avanzar(ElapsedTime);
 
             //rotarEnY = 0;
             //Meterlo en un procedimiento.
@@ -190,6 +190,7 @@ namespace TGC.Group.Model
                 TgcRay rayo = unJugador.disparar();
                 objetosRompibles.dañarBounding(rayo);
                 naveCpu.RecibirDaño(rayo);
+                naves.RecibirDaño(ElapsedTime,rayo);
                 //unaCaja.esDañadoBounding(rayo1);
             }
 
@@ -201,6 +202,7 @@ namespace TGC.Group.Model
                 TgcRay rayo = unJugador.disparar();
                 objetosRompibles.dañarBounding(rayo);
                 naveCpu.RecibirDaño(rayo);
+                naves.RecibirDaño(ElapsedTime, rayo);
                 //unaCaja.esDañadoBounding(rayo1);
             }
 
@@ -338,7 +340,7 @@ namespace TGC.Group.Model
             unJugador.Render();
             jugador2.RenderTodo();
             naveCpu.Render();
-            naves.render();
+            naves.Render();
             DeathStar.Render();
             //DeathStar2.Render();
             //torreta.Render();
