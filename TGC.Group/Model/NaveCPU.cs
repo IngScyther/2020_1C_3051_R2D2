@@ -30,8 +30,8 @@ namespace TGC.Group.Model
         bool seRoto { set; get; }
         bool atacar { set; get; }
         bool estoyVivo { set; get; }
-        bool tiempoVivo;
-        bool tiempoMuerto;
+        float tiempoVivo;
+        float tiempoMuerto;
         float angulox;
         float anguloy;
         float rotacionTotalY;
@@ -57,6 +57,8 @@ namespace TGC.Group.Model
             //ship.UpdateMeshTransform();
             //ship.updateBoundingBox();
             meshNave = ship;
+            tiempoVivo = 30f;
+            tiempoMuerto = 3f;
 
             estoyVivo = true;
 
@@ -79,6 +81,48 @@ namespace TGC.Group.Model
 
         }
 
+
+        public TgcMesh CrearInstanciaNave1(string MediaDir,float anguloRad, float X, float Y, float Z)
+        {
+            TgcSceneLoader loader = new TgcSceneLoader();
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[0];
+            // Al XWIN le falta una aleta.
+            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+            ship.Technique = "Normal";
+            ship.Position = new TGCVector3(140, 43, 202);
+            ship.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
+            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
+            ship.BoundingBox.transform(ship.Transform);
+            //ship.UpdateMeshTransform();
+            //ship.updateBoundingBox();
+            meshNave = ship;
+            tiempoVivo = 30f;
+            tiempoMuerto = 3f;
+
+            estoyVivo = true;
+
+
+            // Arma Laser
+
+            //Crear linea para mostrar la direccion del movimiento del personaje
+            directionArrow = new TgcArrow();
+            directionArrow.BodyColor = Color.Red;
+            directionArrow.HeadColor = Color.Red;
+            directionArrow.Thickness = 0.1f;
+            directionArrow.HeadSize = new TGCVector2(0.1f, 0.1f);
+
+            angulox = 0;
+            anguloy = 0;
+            anguloz = 0;
+            rotacionTotalY = FastMath.PI_HALF;
+
+            return ship;
+
+        }
+
+
+
         public void RecibirDaño(TgcRay rayo) {
 
             TGCVector3 intersection;
@@ -96,6 +140,7 @@ namespace TGC.Group.Model
             {
                 meshNave.BoundingBox.setRenderColor(Color.Red);
                 estoyVivo = false;
+                tiempoMuerto = 3;
 
             }
             else {
@@ -126,17 +171,18 @@ namespace TGC.Group.Model
             if (estoyVivo == true)
             {
 
-                float moveF = -10 * ElapsedTime;
-                //var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
-                //var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
+                float moveF = 10 * ElapsedTime;
+                var x = (float)Math.Cos(meshNave.Rotation.Y) * moveF;
+                var z = -(float)Math.Sin(meshNave.Rotation.Y) * moveF;
 
-                meshNave.Position += new TGCVector3(0, 0, moveF);
+                meshNave.Position += new TGCVector3(x, 0, z);
 
                 meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
                                       TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) *
                                       TGCMatrix.Translation(meshNave.Position);
 
                 meshNave.BoundingBox.transform(meshNave.Transform);
+                tiempoVivo -= ElapsedTime;
 
             } else 
             {
@@ -153,6 +199,22 @@ namespace TGC.Group.Model
 
                 meshNave.BoundingBox.transform(meshNave.Transform);
 
+                tiempoMuerto -= ElapsedTime;
+
+            }
+
+            if (((tiempoVivo <= 0) && (estoyVivo==true)) || ((tiempoMuerto <= 0) && (estoyVivo == false))) {
+
+                meshNave.Position = new TGCVector3(140, 43, 202);
+                meshNave.Rotation = new TGCVector3(0, FastMath.PI / 2, 0);
+                meshNave.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshNave.Rotation.Y, meshNave.Rotation.X, meshNave.Rotation.Z) * TGCMatrix.Translation(meshNave.Position);
+                meshNave.BoundingBox.transform(meshNave.Transform);
+                //ship.UpdateMeshTransform();
+                //ship.updateBoundingBox();
+                
+                tiempoVivo = 20f;
+                tiempoMuerto = 3f;
+                estoyVivo = true;
             }
 
 
