@@ -19,10 +19,10 @@ namespace TGC.Group.Model
 
             //Agregar(string DirMedia,float anguloenrad, float X, float Y, float Z)
             Agregar(DirMedia, 1.57f, 70, 43, 203);
-            Agregar(DirMedia, 1.57f, 140, 43, 203);
+            Agregar(DirMedia, 1.57f, 140, 30, 203);
             //
-            Agregar(DirMedia, 0f, 0, 43, 203);
-            Agregar(DirMedia, 0f, 0, 0, 0);
+            Agregar(DirMedia, 1f, 0, 20, 203);
+            Agregar(DirMedia, 2.35f, 0, 10, 160);
 
 
         }
