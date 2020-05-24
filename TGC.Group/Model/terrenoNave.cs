@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Collision;
+using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
@@ -19,11 +20,17 @@ namespace TGC.Group.Model
         public void cargarNaves1(string DirMedia) {
 
             //Agregar(string DirMedia,float anguloenrad, float X, float Y, float Z)
-            Agregar(DirMedia, 1.57f, 70, 43, 203);
-            Agregar(DirMedia, 1.57f, 140, 30, 203);
-            //
-            Agregar(DirMedia, 1f, 0, 20, 203);
-            Agregar(DirMedia, 2.35f, 0, 10, 160);
+            
+            //Adelante
+            Agregar(DirMedia, 0, 0, 70, 0);
+            Agregar(DirMedia, 0, 0, 70, -150);
+            //DER
+            Agregar(DirMedia, FastMath.PI * 1 / 2, 140, 30, 203);
+            //Atras
+            Agregar(DirMedia, FastMath.PI, 160, 70, 0);
+            Agregar(DirMedia, FastMath.PI, 160, 70, 150);
+            //IZQ
+            Agregar(DirMedia, FastMath.PI*3/2, 30, 30, -160);
 
 
         }
