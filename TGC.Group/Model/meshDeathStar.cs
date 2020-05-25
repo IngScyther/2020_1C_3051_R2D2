@@ -18,19 +18,35 @@ namespace TGC.Group.Model
     class meshDeathStar
     {
 
-        public TgcMesh crearInstanciaNave(string MediaDir)
+        TgcMesh[] meshCompleto;
+        
+        public void crearInstanciaNave(string MediaDir)
         {
+            meshCompleto= new TgcMesh[4];
+
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
-            TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml").Meshes[0];
-            // Al XWIN le falta una aleta.
-            ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
-            ship.Technique = "Normal";
-            ship.Position = new TGCVector3(0, 20, 5);
-            ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
-            ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
 
-            return ship;
+            for (int i = 0; i < 4; i++) {
+                meshCompleto[i] = loader.loadSceneFromFile(MediaDir + "XWing\\death+star-TgcScene.xml").Meshes[i];
+                // Al XWIN le falta una aleta.
+                meshCompleto[i].Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+                meshCompleto[i].Technique = "Normal";
+                meshCompleto[i].Position = new TGCVector3(0, 20, 5);
+                meshCompleto[i].Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
+                meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 10f) 
+                    * TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) 
+                    * TGCMatrix.Translation(meshCompleto[i].Position);        
+            }
+
+        }
+
+        public void Render() {
+
+            foreach (TgcMesh mesh in meshCompleto)
+            {
+                mesh.Render();
+            }
 
         }
 

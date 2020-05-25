@@ -24,7 +24,7 @@ namespace TGC.Group.Model
     {
 
         //Variables del jugador
-        TgcMesh meshjugador;
+        //TgcMesh meshjugador;
         TgcMesh[] meshCompleto;
 
 
@@ -49,16 +49,29 @@ namespace TGC.Group.Model
 
         public TgcMesh crearInstanciaNave1(string MediaDir)
         {
+
+            meshCompleto=new TgcMesh[2];
+            int posicionDeMech=0;
+
             TgcSceneLoader loader = new TgcSceneLoader();
             //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
             TgcMesh ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[0];
+            //ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[1];
+
+            foreach (TgcMesh Mesh in meshCompleto) { 
+                
+
+            
+            }
+
+
             // Al XWIN le falta una aleta.
             ship.Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
             ship.Technique = "Normal";
             ship.Position = new TGCVector3(0, 0, 5);
             ship.Rotation = new TGCVector3(0, /*FastMath.PI / 2*/0, 0);
             ship.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(ship.Rotation.Y, ship.Rotation.X, ship.Rotation.Z) * TGCMatrix.Translation(ship.Position);
-            meshjugador = ship;
+            //meshjugador = ship;
             
 
             // Arma Laser
@@ -79,6 +92,46 @@ namespace TGC.Group.Model
 
 
         }
+
+        public void crearInstanciaNaveN(string MediaDir)
+        {
+
+            meshCompleto = new TgcMesh[2];
+            int posicionDeMech = 0;
+
+            TgcSceneLoader loader = new TgcSceneLoader();
+            //ship = loader.loadSceneFromFile(MediaDir + "StarWars-Speeder-TgcScene.xml").Meshes[0];
+            TgcMesh ship;
+            //ship = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[1];
+
+            for (int i = 0; i < 2; i++) {//Inicializar Meshes
+
+                meshCompleto[i] = loader.loadSceneFromFile(MediaDir + "XWing\\xwing-TgcScene.xml").Meshes[i];
+                meshCompleto[i].Effect = TGCShaders.Instance.LoadEffect(MediaDir + "ShipRoll.fx");
+                meshCompleto[i].Technique = "Normal";
+                meshCompleto[i].Position = new TGCVector3(0, 0, 5);
+                meshCompleto[i].Rotation = new TGCVector3(0, 0, 0); //FastMath.PI / 2
+                meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) 
+                    * TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) 
+                    * TGCMatrix.Translation(meshCompleto[i].Position);            
+            }
+            // Arma Laser
+
+            //Crear linea para mostrar la direccion del movimiento del personaje
+            directionArrow = new TgcArrow();
+            directionArrow.BodyColor = Color.Red;
+            directionArrow.HeadColor = Color.Red;
+            directionArrow.Thickness = 0.1f;
+            directionArrow.HeadSize = new TGCVector2(0.1f, 0.1f);
+
+            angulox = 0;
+            anguloy = 0;
+            anguloz = 0;
+            rotacionTotalY = FastMath.PI_HALF;
+        }
+
+
+
 
         public TgcMesh crearInstanciaNave2(string MediaDir)
         {
@@ -131,10 +184,6 @@ namespace TGC.Group.Model
 
 
         }
-
-
-
-
 
         public void inicializarMovimiento() {
 
@@ -211,21 +260,24 @@ namespace TGC.Group.Model
             if (seMovio) {
 
                 //meshjugador.Position = meshjugador.Position + desplazamiento;
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
-                meshjugador.updateBoundingBox();
+                //meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
+                //meshjugador.updateBoundingBox();
                 //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
 
+                
+                
                 var moveF = Vuela * ElapsedTime;
-                var x = (float)Math.Cos(meshjugador.Rotation.Y) * moveF;
-                var z = -(float)Math.Sin(meshjugador.Rotation.Y) * moveF;
+                var x = (float)Math.Cos(meshCompleto[0].Rotation.Y) * moveF;
+                var z = -(float)Math.Sin(meshCompleto[0].Rotation.Y) * moveF;
 
-                meshjugador.Position += new TGCVector3(x, 0, z);
+                for (int i = 0; i < 2; i++) {
+                    meshCompleto[i].Position += new TGCVector3(x, 0, z);
+                    meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                          TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) *
+                                          TGCMatrix.Translation(meshCompleto[i].Position);
+                    Camara1.Target = meshCompleto[i].Position;
+                }
 
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
-                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
-                                      TGCMatrix.Translation(meshjugador.Position);
-
-                Camara1.Target = meshjugador.Position;
 
             }
 
@@ -233,21 +285,22 @@ namespace TGC.Group.Model
             {
 
                 //meshjugador.Position = meshjugador.Position + desplazamiento;
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
-                meshjugador.updateBoundingBox();
+                //meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
+                //meshjugador.updateBoundingBox();
                 //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
 
                 var moveF = Vuelax * ElapsedTime;
-                var z = (float)Math.Cos(meshjugador.Rotation.Y) * moveF;
-                var x = (float)Math.Sin(meshjugador.Rotation.Y) * moveF;
+                var z = (float)Math.Cos(meshCompleto[0].Rotation.Y) * moveF;
+                var x = (float)Math.Sin(meshCompleto[0].Rotation.Y) * moveF;
 
-                meshjugador.Position += new TGCVector3(x, 0, z);
-
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
-                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
-                                      TGCMatrix.Translation(meshjugador.Position);
-
-                Camara1.Target = meshjugador.Position;
+                for (int i = 0; i < 2; i++)
+                {
+                    meshCompleto[i].Position += new TGCVector3(x, 0, z);
+                    meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                          TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) *
+                                          TGCMatrix.Translation(meshCompleto[i].Position);
+                    Camara1.Target = meshCompleto[i].Position;
+                }
 
             }
 
@@ -255,8 +308,8 @@ namespace TGC.Group.Model
             {
 
                 //meshjugador.Position = meshjugador.Position + desplazamiento;
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
-                meshjugador.updateBoundingBox();
+                //meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) * TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) * TGCMatrix.Translation(meshjugador.Position);
+                //meshjugador.updateBoundingBox();
                 //Camara1.setTargetOffset(meshjugador.Position, -30, 5, 0);
 
                 var moveF = Vuelax * ElapsedTime;
@@ -264,13 +317,14 @@ namespace TGC.Group.Model
                 //var z = (float)Math.Cos(meshjugador.Rotation.Y) * moveF;
                 //var x = (float)Math.Sin(meshjugador.Rotation.Y) * moveF;
 
-                meshjugador.Position += new TGCVector3(0, y, 0);
-
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
-                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
-                                      TGCMatrix.Translation(meshjugador.Position);
-
-                Camara1.Target = meshjugador.Position;
+                for (int i = 0; i < 2; i++)
+                {
+                    meshCompleto[i].Position += new TGCVector3(0, y, 0);
+                    meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                          TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) *
+                                          TGCMatrix.Translation(meshCompleto[i].Position);
+                    Camara1.Target = meshCompleto[i].Position;
+                }
 
             }
 
@@ -305,9 +359,9 @@ namespace TGC.Group.Model
                 
             if (seRoto) { 
                 var rotAngle = Geometry.DegreeToRadian(anguloz * ElapsedTime);
-                meshjugador.Rotation += new TGCVector3(0, 0, rotAngle);
+                meshCompleto[0].Rotation += new TGCVector3(0, 0, rotAngle);
                 Camera.rotateY(rotAngle);
-                Camera.Target = meshjugador.Position;
+                Camera.Target = meshCompleto[0].Position;
                 
             }
             
@@ -318,10 +372,14 @@ namespace TGC.Group.Model
             if (seRoto)
             {
                 var rotAngle = Geometry.DegreeToRadian(-anguloy * ElapsedTime);
-                meshjugador.Rotation += new TGCVector3(0, rotAngle, 0);
-                meshjugador.Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
-                                      TGCMatrix.RotationYawPitchRoll(meshjugador.Rotation.Y, meshjugador.Rotation.X, meshjugador.Rotation.Z) *
-                                      TGCMatrix.Translation(meshjugador.Position);
+                
+                for (int i = 0; i < 2; i++) { 
+                
+                    meshCompleto[i].Rotation += new TGCVector3(0, rotAngle, 0);
+                    meshCompleto[i].Transform = TGCMatrix.Scaling(TGCVector3.One * 0.05f) *
+                                          TGCMatrix.RotationYawPitchRoll(meshCompleto[i].Rotation.Y, meshCompleto[i].Rotation.X, meshCompleto[i].Rotation.Z) *
+                                          TGCMatrix.Translation(meshCompleto[i].Position);                
+                }
 
                 //Camera.rotateY(rotAngle* ElapsedTime);
                 float a = -anguloy * ElapsedTime;
@@ -357,11 +415,11 @@ namespace TGC.Group.Model
 
 
             atacar = true;
-            directionArrow.PStart = meshjugador.Position;
-            directionArrow.PEnd = meshjugador.Position + new TGCVector3(componenteX, 0, componenteZ) * 100;
+            directionArrow.PStart = meshCompleto[0].Position;
+            directionArrow.PEnd = meshCompleto[0].Position + new TGCVector3(componenteX, 0, componenteZ) * 100;
             directionArrow.updateValues();
 
-            rayo1 = new TgcRay(meshjugador.Position, new TGCVector3(componenteX, 0, componenteZ) * 100);
+            rayo1 = new TgcRay(meshCompleto[0].Position, new TGCVector3(componenteX, 0, componenteZ) * 100);
 
             return rayo1;
 
@@ -371,7 +429,7 @@ namespace TGC.Group.Model
 
         public TGCVector3 Position() {
 
-            return meshjugador.Position;
+            return meshCompleto[0].Position;
 
         }
 
@@ -384,15 +442,15 @@ namespace TGC.Group.Model
                 mesh.Render();
             }
 
+            if (atacar == true)
+            {
+                directionArrow.Render();
+            }
         }
-
-
-
-
 
         public void Render() 
         {
-            meshjugador.Render();
+            meshCompleto[0].Render();
 
             if (atacar == true) {
             

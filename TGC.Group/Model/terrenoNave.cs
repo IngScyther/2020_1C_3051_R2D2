@@ -19,8 +19,7 @@ namespace TGC.Group.Model
 
         public void cargarNaves1(string DirMedia) {
 
-            //Agregar(string DirMedia,float anguloenrad, float X, float Y, float Z)
-            
+            //Agregar(string DirMedia,float anguloenrad, float X, float Y, float Z)            
             //Adelante
             Agregar(DirMedia, 0, 0, 70, 0);
             Agregar(DirMedia, 0, 0, 70, -150);
@@ -31,8 +30,6 @@ namespace TGC.Group.Model
             Agregar(DirMedia, FastMath.PI, 160, 70, 150);
             //IZQ
             Agregar(DirMedia, FastMath.PI*3/2, 30, 30, -160);
-
-
         }
 
 
@@ -68,9 +65,5 @@ namespace TGC.Group.Model
             NavesEnElMundo.Add(NuevaNave);
         }
         
-
-
-
-
     }
 }
